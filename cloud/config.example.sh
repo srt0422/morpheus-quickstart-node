@@ -18,6 +18,7 @@ export WALLET_PRIVATE_KEY="your-wallet-private-key"
 export INTERNAL_API_PORT="8080"  # Internal reference only, Cloud Run will provide PORT
 export MARKETPLACE_PORT="3333"
 export SESSION_DURATION="1h"
+export MOR_TOKEN_ADDRESS=0x34a285a1b1c166420df5b6630132542923b5b27e
 
 # API Configuration
 export MARKETPLACE_BASE_URL="" # Will be auto-populated during deployment
@@ -30,13 +31,24 @@ export NFA_PROXY_VERSION=""      # e.g. "v1.0.0" - for srt0422/openai-morpheus-p
 export CONSUMER_NODE_VERSION=""  # e.g. "v1.0.0" - for srt0422/morpheus-marketplace-consumer
 
 # Consumer Node Configuration
-export BLOCKCHAIN_WS_URL="wss://arbitrum-mainnet.infura.io/ws/v3/your-project-id"
-export BLOCKCHAIN_HTTP_URL="https://arbitrum-mainnet.infura.io/v3/your-project-id"
+export BLOCKCHAIN_WS_URL="" # "wss://arbitrum-mainnet.infura.io/ws/v3/your-project-id"
+export BLOCKCHAIN_HTTP_URL="" # "https://arbitrum-mainnet.infura.io/v3/your-project-id"
 export LOG_LEVEL="info"
 export LOG_FORMAT="text"
 export PROVIDER_CACHE_TTL="60"
 export MAX_CONCURRENT_SESSIONS="100"
 export SESSION_TIMEOUT="3600"
+
+# Node Configuration
+export EXPLORER_API_URL="https://api-sepolia.arbiscan.io/api"
+export ETH_NODE_ADDRESS="${BLOCKCHAIN_WS_URL:-${BLOCKCHAIN_HTTP_URL:-https://sepolia-rollup.arbitrum.io/rpc}}"
+export ETH_NODE_LEGACY_TX="false"
+export PROXY_STORE_CHAT_CONTEXT="true"
+export PROXY_STORAGE_PATH="./data/"
+export LOG_COLOR="true"
+export ETH_NODE_USE_SUBSCRIPTIONS="false"
+export ETH_NODE_CHAIN_ID="421614"
+export ENVIRONMENT="development"
 
 # Function to ensure correct GCP context
 ensure_gcp_context() {
@@ -54,7 +66,7 @@ check_service_health() {
 
     while [ $attempt -le $max_attempts ]; do
         echo "Checking service health (attempt $attempt/$max_attempts)..."
-        if curl -s "${service_url}" | grep -q '"status":"healthy"'; then
+        if curl -s "${service_url}" | grep -iq 'healthy'; then
             echo "Service is healthy!"
             return 0
         fi
@@ -75,6 +87,7 @@ check_deployment() {
 
     while [ $attempt -le $max_attempts ]; do
         status=$(gcloud run services describe $service_name \
+            --region=$REGION \
             --format='value(status.conditions[0].status)' 2>/dev/null || echo "Unknown")
         
         if [ "$status" == "True" ]; then
