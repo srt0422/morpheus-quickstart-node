@@ -95,9 +95,9 @@ export default function Home() {
   return (
     <div>
       <Head>
-        <title>OpenAI Chat</title>
+        <title>Morpheus</title>
       </Head>
-      <h1 className={styles.heading1}>OpenAI Chat Completion Quickstart</h1>
+      <h1 className={styles.heading1}>Morpheus Sample App</h1>
       {error && <div className={styles.errorMessage}>{error}</div>}
       <div className={styles.chatContainer} ref={chatContainerRef}>
         {messages.map((msg, index) => (
