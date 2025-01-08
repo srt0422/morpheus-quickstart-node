@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # GCP Project Configuration
-export PROJECT_ID=""
+export PROJECT_ID="your-project-id"
 export REGION="us-west1"
 export ZONE="us-west1-a"
 export DOCKER_REGISTRY="srt0422"  # Using Docker Hub registry instead of GCR
@@ -12,7 +12,7 @@ export CONSUMER_URL="" # Will be auto-populated during deployment with consumer 
 
 # Contract Configuration
 export DIAMOND_CONTRACT_ADDRESS="0xb8C55cD613af947E73E262F0d3C54b7211Af16CF"
-export WALLET_PRIVATE_KEY=""
+export WALLET_PRIVATE_KEY="your-wallet-key"
 
 # Service Configuration 
 export INTERNAL_API_PORT="8080"  # Internal reference only, Cloud Run will provide PORT
