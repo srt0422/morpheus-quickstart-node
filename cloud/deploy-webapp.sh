@@ -34,7 +34,9 @@ if gcloud run deploy chat-web-app \
   --platform managed \
   --region "$REGION" \
   --allow-unauthenticated \
-  --set-env-vars "OPENAI_API_URL=${OPENAI_API_URL}/v1" \
+  --set-env-vars "\
+OPENAI_API_URL=${OPENAI_API_URL}/v1,\
+MODEL_NAME=${MODEL_NAME}" \
   --project "$PROJECT_ID"; then
   echo "Docker Hub deployment succeeded."
 else
@@ -45,7 +47,9 @@ else
     --platform managed \
     --region "$REGION" \
     --allow-unauthenticated \
-    --set-env-vars "OPENAI_API_URL=${OPENAI_API_URL}/v1" \
+    --set-env-vars "\
+OPENAI_API_URL=${OPENAI_API_URL}/v1,\
+MODEL_NAME=${MODEL_NAME}" \
     --project "$PROJECT_ID"
 fi
 

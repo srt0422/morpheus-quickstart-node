@@ -1,7 +1,7 @@
 import OpenAI from "openai";
 import { NextResponse } from 'next/server';
 
-const MODEL = "nfa-llama2";
+const MODEL = process.env.MODEL_NAME || "nfa-llama2";
 const openai = new OpenAI({
   apiKey:"sk-",
   baseURL: process.env.OPENAI_API_URL || 'http://34.127.54.11:8080/v1'

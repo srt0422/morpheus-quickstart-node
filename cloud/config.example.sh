@@ -30,6 +30,14 @@ export CONSUMER_URL="" # Will be auto-populated during deployment
 export NFA_PROXY_VERSION=""      # e.g. "v1.0.0" - for srt0422/openai-morpheus-proxy
 export CONSUMER_NODE_VERSION=""  # e.g. "v1.0.0" - for srt0422/morpheus-marketplace-consumer
 
+# Provider Model Configuration
+export MODEL_ID="default-model"
+export MODEL_NAME="Default Model"
+export MODEL_API_TYPE="openai"
+export MODEL_API_URL="http://default-endpoint:8080"
+export MODEL_API_KEY="default-key"
+export MODELS_BUCKET="your-models-bucket"
+
 # Consumer Node Configuration
 export BLOCKCHAIN_WS_URL="" # "wss://arbitrum-mainnet.infura.io/ws/v3/your-project-id"
 export BLOCKCHAIN_HTTP_URL="" # "https://arbitrum-mainnet.infura.io/v3/your-project-id"
