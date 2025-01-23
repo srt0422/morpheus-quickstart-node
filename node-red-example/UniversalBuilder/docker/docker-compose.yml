@@ -1,0 +1,31 @@
+version: '3.8'
+
+services:
+  consumer:
+    build:
+      context: ./consumer
+      dockerfile: Dockerfile
+    environment:
+      - WALLET_CREDENTIALS=${WALLET_CREDENTIALS}
+      - NODE_ENV=production
+    ports:
+      - "3000:3000"
+    networks:
+      - platform-network
+
+  proxy:
+    build:
+      context: ./proxy
+      dockerfile: Dockerfile
+    environment:
+      - API_KEY=${API_KEY}
+      - NODE_ENV=production
+    ports:
+      - "3000:3000"
+      - "8080:8080"
+    networks:
+      - platform-network
+
+networks:
+  platform-network:
+    driver: bridge 

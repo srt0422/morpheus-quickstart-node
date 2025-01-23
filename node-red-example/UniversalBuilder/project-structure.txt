@@ -1,0 +1,32 @@
+node-red-contrib-platform-deploy/
+├── package.json
+├── README.md
+├── LICENSE
+├── docker/
+│   ├── consumer/
+│   │   └── Dockerfile
+│   ├── proxy/
+│   │   └── Dockerfile
+│   └── docker-compose.yml
+├── nodes/
+│   ├── deploy-consumer.js
+│   ├── deploy-consumer.html
+│   ├── deploy-proxy.js
+│   ├── deploy-proxy.html
+│   ├── deploy-config.js
+│   ├── deploy-config.html
+│   └── icons/
+│       ├── consumer.png
+│       └── proxy.png
+├── src/
+│   ├── lib/
+│   │   ├── docker-manager.js
+│   │   ├── validation.js
+│   │   └── utils.js
+│   └── config/
+│       └── defaults.js
+└── test/
+    ├── deploy-consumer_spec.js
+    ├── deploy-proxy_spec.js
+    ├── deploy-config_spec.js
+    └── docker-manager_spec.js 

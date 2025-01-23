@@ -1,0 +1,13 @@
+{
+    "verbose": true,
+    "watch": [
+        "flows.json",
+        "settings.js",
+        "lib/**/*",
+        "UniversalBuilder/**/*"
+    ],
+    "ignore": [
+        "node_modules/**/*"
+    ],
+    "exec": "npx node-red -u ./ -s ./settings.js"
+} 

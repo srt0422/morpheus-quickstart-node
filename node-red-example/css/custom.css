@@ -1,0 +1,10 @@
+#red-ui-header span.red-ui-header-logo span:not(:first-child) {
+    margin-left: 55px;
+}
+
+#red-ui-header span.red-ui-header-logo img {
+    width: 500px;
+    position: absolute;
+    left: -210px;
+    top: -185px;
+}

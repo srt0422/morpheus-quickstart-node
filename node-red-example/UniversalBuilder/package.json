@@ -1,0 +1,51 @@
+{
+  "name": "node-red-contrib-universal-deploy",
+  "version": "1.0.2",
+  "description": "Node-RED plugin for platform-agnostic deployment of consumer node and proxy",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha --timeout 10000 \"test/**/*_spec.js\"",
+    "test:coverage": "nyc mocha --timeout 10000 \"test/**/*_spec.js\"",
+    "test:watch": "mocha --timeout 10000 --watch \"test/**/*_spec.js\"",
+    "lint": "eslint nodes/* src/*"
+  },
+  "node-red": {
+    "nodes": {
+      "deploy-proxy": "nodes/deploy-proxy.js",
+      "deploy-webapp": "nodes/deploy-webapp.js",
+      "deploy-cloud-azure": "nodes/deploy-cloud-azure.js",
+      "deploy-consumer": "nodes/deploy-consumer.js",
+      "deploy-mor20": "nodes/deploy-mor20.js",
+      "deploy-app": "nodes/deploy-app.js",
+      "deploy-cloud-local": "nodes/deploy-cloud-local.js",
+      "deploy-agent": "nodes/deploy-agent.js",
+      "deploy-provider": "nodes/deploy-provider.js",
+      "deploy-cloud-akash": "nodes/deploy-cloud-akash.js",
+      "deploy-cloud-aws": "nodes/deploy-cloud-aws.js",
+      "deploy-cloud-gcp": "nodes/deploy-cloud-gcp.js",
+      "deploy-subnet": "nodes/deploy-subnet.js",
+      "deploy-config": "nodes/deploy-config.js",
+      "deploy-wallet": "nodes/deploy-wallet.js"
+    }
+  },
+  "keywords": [
+    "node-red",
+    "deployment",
+    "docker",
+    "container"
+  ],
+  "dependencies": {
+    "dockerode": "^3.3.5"
+  },
+  "devDependencies": {
+    "mocha": "^10.0.0",
+    "eslint": "^8.0.0",
+    "nyc": "^15.1.0",
+    "sinon": "^17.0.1",
+    "chai": "^4.3.10",
+    "node-red": "^3.1.0",
+    "node-red-node-test-helper": "^0.3.3"
+  },
+  "author": "",
+  "license": "MIT"
+} 

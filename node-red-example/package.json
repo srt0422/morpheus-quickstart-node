@@ -1,0 +1,31 @@
+{
+  "name": "node-red-nfa-example",
+  "version": "1.0.0",
+  "description": "Example Node-RED flow for NFA proxy deployment",
+  "scripts": {
+    "start": "./scripts/start.sh",
+    "dev": "./scripts/dev.sh --run",
+    "build": "./scripts/dev.sh",
+    "deploy": "npx node-red flows.json -s ./settings.js",
+    "test": "mocha \"test/**/*_spec.js\" --timeout 300000",
+    "test:e2e": "mocha test/deployment.test.js",
+    "test:deployment": "npm run test:e2e"
+  },
+  "dependencies": {
+    "@node-red/nodes": "^4.0.8",
+    "dotenv": "^16.3.1",
+    "node-red": "^3.1.8",
+    "node-red-contrib-universal-deploy": "file:../../UniversalBuilder",
+    "node-red-node-test-helper": "^0.3.4",
+    "semver": "^7.6.3"
+  },
+  "devDependencies": {
+    "axios": "^1.6.5",
+    "chai": "^5.1.2",
+    "mocha": "^10.2.0",
+    "nodemon": "^3.0.2"
+  },
+  "engines": {
+    "node": ">=16.0.0 <21.0.0"
+  }
+}

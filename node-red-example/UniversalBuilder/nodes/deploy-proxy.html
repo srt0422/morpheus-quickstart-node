@@ -1,0 +1,118 @@
+<script type="text/javascript">
+    RED.nodes.registerType('deploy-proxy', {
+        category: 'Morpheus',
+        color: '#a6bbcf',
+        defaults: {
+            name: { value: "" },
+            deployConfig: { type: "deploy-config", required: true },
+            ports: { value: {} },
+            environmentVars: { value: {} }
+        },
+        inputs: 1,
+        outputs: 1,
+        icon: "proxy.png",
+        label: function() {
+            return this.name || "Proxy";
+        }
+    });
+</script>
+
+<script type="text/html" data-template-name="deploy-proxy">
+    <div class="form-row">
+        <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
+        <input type="text" id="node-input-name" placeholder="Name">
+    </div>
+    <div class="form-row">
+        <label for="node-input-action"><i class="fa fa-tasks"></i> Action</label>
+        <select id="node-input-action">
+            <option value="deploy">Deploy</option>
+            <option value="update">Update</option>
+        </select>
+    </div>
+    <div class="form-row">
+        <label for="node-input-projectId"><i class="fa fa-cloud"></i> Project ID</label>
+        <input type="text" id="node-input-projectId" placeholder="GCP Project ID">
+    </div>
+    <div class="form-row">
+        <label for="node-input-region"><i class="fa fa-globe"></i> Region</label>
+        <input type="text" id="node-input-region" placeholder="us-west1">
+    </div>
+    <div class="form-row">
+        <label for="node-input-dockerRegistry"><i class="fa fa-database"></i> Docker Registry</label>
+        <input type="text" id="node-input-dockerRegistry" placeholder="srt0422">
+    </div>
+    <div class="form-row">
+        <label for="node-input-proxyVersion"><i class="fa fa-code-fork"></i> Proxy Version</label>
+        <input type="text" id="node-input-proxyVersion" placeholder="latest">
+    </div>
+    <div class="form-row">
+        <label for="node-input-internalApiPort"><i class="fa fa-plug"></i> Internal API Port</label>
+        <input type="text" id="node-input-internalApiPort" placeholder="8080">
+    </div>
+    <div class="form-row">
+        <label for="node-input-marketplacePort"><i class="fa fa-shopping-cart"></i> Marketplace Port</label>
+        <input type="text" id="node-input-marketplacePort" placeholder="3333">
+    </div>
+    <div class="form-row">
+        <label for="node-input-sessionDuration"><i class="fa fa-clock-o"></i> Session Duration</label>
+        <input type="text" id="node-input-sessionDuration" placeholder="1h">
+    </div>
+    <div class="form-row">
+        <label for="node-input-marketplaceBaseUrl"><i class="fa fa-link"></i> Marketplace Base URL</label>
+        <input type="text" id="node-input-marketplaceBaseUrl" placeholder="http://consumer-service:9000">
+    </div>
+    <div class="form-row">
+        <label for="node-input-marketplaceUrl"><i class="fa fa-chain"></i> Marketplace URL</label>
+        <input type="text" id="node-input-marketplaceUrl" placeholder="http://consumer-service:9000/v1/chat/completions">
+    </div>
+</script>
+
+<script type="text/html" data-help-name="deploy-proxy">
+    <p>Deploys or updates an NFA Proxy service to Google Cloud Run.</p>
+    
+    <h3>Inputs</h3>
+    <dl class="message-properties">
+        <dt>payload
+            <span class="property-type">object</span>
+        </dt>
+        <dd>The input message payload containing any existing service URLs.</dd>
+        
+        <dt class="optional">config
+            <span class="property-type">object</span>
+        </dt>
+        <dd>Optional configuration object that can override node settings.</dd>
+    </dl>
+    
+    <h3>Outputs</h3>
+    <dl class="message-properties">
+        <dt>payload
+            <span class="property-type">object</span>
+        </dt>
+        <dd>The deployment or update results including status and service URLs.</dd>
+        
+        <dt>config
+            <span class="property-type">object</span>
+        </dt>
+        <dd>Updated configuration with service URLs for downstream nodes.</dd>
+    </dl>
+    
+    <h3>Details</h3>
+    <p>This node deploys or updates an NFA Proxy service on Google Cloud Run. It supports two actions:</p>
+    <ul>
+        <li><code>deploy</code>: Deploys a new instance of the proxy service</li>
+        <li><code>update</code>: Updates an existing proxy service with new configuration</li>
+    </ul>
+    
+    <h3>Configuration</h3>
+    <ul>
+        <li><code>Project ID</code>: Your Google Cloud project ID</li>
+        <li><code>Region</code>: The GCP region to deploy to (default: us-west1)</li>
+        <li><code>Docker Registry</code>: Docker registry containing the proxy image (default: srt0422)</li>
+        <li><code>Proxy Version</code>: Version tag for the proxy image (default: latest)</li>
+        <li><code>Internal API Port</code>: Port for internal API (default: 8080)</li>
+        <li><code>Marketplace Port</code>: Port for marketplace service (default: 3333)</li>
+        <li><code>Session Duration</code>: Duration of proxy sessions (default: 1h)</li>
+        <li><code>Marketplace Base URL</code>: Base URL for the marketplace service</li>
+        <li><code>Marketplace URL</code>: Full URL for marketplace completions endpoint</li>
+    </ul>
+</script> 

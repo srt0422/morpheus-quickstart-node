@@ -2,9 +2,14 @@ import OpenAI from "openai";
 import { NextResponse } from 'next/server';
 
 const MODEL = process.env.MODEL_NAME || "nfa-llama2";
+console.log('API Config:', {
+  baseURL: process.env.OPENAI_API_URL,
+  model: MODEL
+});
+
 const openai = new OpenAI({
-  apiKey:"sk-",
-  baseURL: process.env.OPENAI_API_URL || 'http://34.127.54.11:8080/v1'
+  apiKey: "sk-",
+  baseURL: process.env.OPENAI_API_URL
 });
 
 export const config = {
@@ -25,6 +30,11 @@ export default async function handler(req, res) {
   }
 
   try {
+    console.log('Making request to OpenAI with:', {
+      model: MODEL,
+      messagesCount: messages.length
+    });
+
     // Enable streaming
     res.setHeader('Content-Type', 'text/event-stream');
     res.setHeader('Cache-Control', 'no-cache');
@@ -46,6 +56,7 @@ export default async function handler(req, res) {
     // Send done signal as proper JSON
     res.write(`data: ${JSON.stringify({ done: true })}\n\n`);
   } catch (error) {
+    console.error('OpenAI API Error:', error);
     res.write(`data: ${JSON.stringify({ error: error.message })}\n\n`);
   } finally {
     res.end();
