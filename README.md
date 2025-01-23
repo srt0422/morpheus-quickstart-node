@@ -7,6 +7,25 @@ This is a sample app using Morpheus inference in a Next.js app hosted on Google 
 1. App proxy router that exists in a Docker container.
 2. A front end that the user uses to send prompts and see responses from the App router
 
+## Table of Contents
+- [Overview](#overview)
+- [Guide](#guide)
+- [Getting Started](#getting-started)
+  - [Prerequisites](#prerequisites)
+  - [Clone the Repository](#clone-the-repository)
+  - [Navigate to the Repository Root Directory](#navigate-to-the-repository-root-directory)
+  - [Configuration](#configuration)
+- [Deployment](#deployment)
+  - [Single Command Deployment](#single-command-deployment)
+  - [Individual Service Deployment](#individual-service-deployment)
+- [Service Architecture](#service-architecture)
+- [Environment Variables](#environment-variables)
+  - [NFA Proxy](#nfa-proxy)
+  - [Consumer Node](#consumer-node)
+  - [Chat Web App](#chat-web-app)
+- [Monitoring & Logs](#monitoring--logs)
+- [Cleanup](#cleanup)
+
 You will need to set up the app router in order to open and close inference sessions on the Morpheus network.  There is a complete guide for this in the [Morpheus Marketplace Docs](https://github.com/Lumerin-protocol/Morpheus-Lumerin-Node/blob/dev/docs/00-overview.md)
 
 For this particular demo we have installed the app router on a Google Cloud Run service to host Docker containers.
@@ -67,15 +86,26 @@ The following variables are used across the sample deployment:
   - `EXPLORER_API_URL` – Blockchain explorer endpoint
   - `ETH_NODE_CHAIN_ID` – Ethereum chain ID
   - `ENVIRONMENT` – App environment (development/production)
-  - `PROXY_ADDRESS` – Consumer Node’s proxy bind address
-  - `WEB_ADDRESS` – Consumer Node’s web interface address
-  - `WEB_PUBLIC_URL` – Consumer Node’s public URL
+  - `PROXY_ADDRESS` – Consumer Node's proxy bind address
+  - `WEB_ADDRESS` – Consumer Node's web interface address
+  - `WEB_PUBLIC_URL` – Consumer Node's public URL
   - `ETH_NODE_USE_SUBSCRIPTIONS` – Enable chain event subscriptions
   - `ETH_NODE_ADDRESS` – Ethereum RPC node URL
   - `ETH_NODE_LEGACY_TX` – True to enforce legacy transactions
   - `PROXY_STORE_CHAT_CONTEXT` – Activates chat context storage
   - `PROXY_STORAGE_PATH` – Storage path for data
   - `LOG_COLOR` – True to enable colored logs
+
+## Getting Started
+
+### Prerequisites
+- Google Cloud Account
+- Google Cloud SDK installed [Setup Instructions](https://cloud.google.com/sdk/docs/install-sdk?_gl=1*1eoawsq*_up*MQ..&gclid=CjwCAiA-Oi7BhA1EiwA2rIu2xra5EEWf_n6EB_rOgehhBNqqx53-B6nhCDvgzAhAiBAEqvEOv0kThoCyJYQAvD_BwE&gclsrc=aw.ds)
+- **Google Cloud Run and necessary APIs enabled**
+- **Logged in with `gcloud auth login`**
+- Node.js >=16
+- npm >=7
+- Docker
 
 ### Clone the Repository
 ```bash
@@ -87,22 +117,7 @@ git clone https://github.com/srt0422/morpheus-quickstart-node.git
 cd morpheus-quickstart-node
 ```
 
-## Overview
-This repository contains deployment configurations for three interconnected services:
-- NFA Proxy (Base LLM Service)
-- Consumer Node
-- Chat Web Application
-
-## Prerequisites
-- Google Cloud Account
-- Google Cloud SDK installed [Setup Instructions](https://cloud.google.com/sdk/docs/install-sdk?_gl=1*1eoawsq*_up*MQ..&gclid=CjwCAiA-Oi7BhA1EiwA2rIu2xra5EEWf_n6EB_rOgehhBNqqx53-B6nhCDvgzAhAiBAEqvEOv0kThoCyJYQAvD_BwE&gclsrc=aw.ds)
-- **Google Cloud Run and necessary APIs enabled**
-- **Logged in with `gcloud auth login`**
-- Node.js >=16
-- npm >=7
-- Docker
-
-## Configuration
+### Configuration
 
 1. Copy the example environment file:
 ```bash
@@ -128,6 +143,10 @@ export WALLET_PRIVATE_KEY="your-wallet-private-key"
 export DIAMOND_CONTRACT_ADDRESS="0xb8C55cD613af947E73E262F0d3C54b7211Af16CF"
 ```
 
+### Deploy the example app
+Deploy all services with:
+```bash
+./cloud/deploy-all.sh
 ## Docker Images
 The deployment uses the following pre-built Docker Hub images:
 - NFA Proxy: `srt0422/openai-morpheus-proxy:latest`
