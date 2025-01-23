@@ -30,11 +30,12 @@ export CONSUMER_URL="" # Will be auto-populated during deployment
 
 # Container Versions (optional - defaults to 'latest' if not set)
 export NFA_PROXY_VERSION=""      # e.g. "v1.0.0" - for srt0422/openai-morpheus-proxy
-export CONSUMER_NODE_VERSION=""  # e.g. "v1.0.0" - for srt0422/morpheus-marketplace-consumer
+export CONSUMER_NODE_VERSION="v0.0.16"  # e.g. "v1.0.0" - for srt0422/morpheus-marketplace-consumer
+export VERSION="v1.0.22"
 
 # Consumer Node Configuration
 export BLOCKCHAIN_WS_URL="" # "wss://arbitrum-mainnet.infura.io/ws/v3/your-project-id"
-export BLOCKCHAIN_HTTP_URL="" # "https://arbitrum-mainnet.infura.io/v3/your-project-id"
+export BLOCKCHAIN_HTTP_URL="" # "https://arbitrum-mainnet.infura.io/v3/your-project-id" public endpoint - https://sepolia-rollup.arbitrum.io/rpc
 export LOG_LEVEL="info"
 export LOG_FORMAT="text"
 export PROVIDER_CACHE_TTL="60"

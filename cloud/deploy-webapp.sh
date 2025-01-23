@@ -32,10 +32,23 @@ fi
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
 
-# Install and use the latest compatible Node.js version
-echo "Installing compatible Node.js version..."
-nvm install $(nvm version-remote $(node -p "require('semver').minVersion('$NODE_VERSION')"))
-nvm use $(nvm version-remote $(node -p "require('semver').minVersion('$NODE_VERSION')"))
+# Get the highest compatible LTS version based on the engine requirement
+echo "Finding highest compatible LTS version for requirement: $NODE_VERSION"
+COMPATIBLE_VERSION=$(nvm ls-remote --lts | grep -E "v[0-9]+\.[0-9]+\.[0-9]+" | while read -r line; do
+    version=$(echo "$line" | grep -Eo "v[0-9]+\.[0-9]+\.[0-9]+" | tr -d 'v')
+    if node -e "process.exit(require('semver').satisfies('$version', '$NODE_VERSION') ? 0 : 1)" 2>/dev/null; then
+        echo "$version"
+    fi
+done | tail -n1)
+
+if [ -z "$COMPATIBLE_VERSION" ]; then
+    echo "Error: No compatible LTS version found for requirement: $NODE_VERSION"
+    exit 1
+fi
+
+echo "Installing Node.js version $COMPATIBLE_VERSION..."
+nvm install "$COMPATIBLE_VERSION"
+nvm use "$COMPATIBLE_VERSION"
 
 # Install dependencies
 echo "Installing npm dependencies..."
