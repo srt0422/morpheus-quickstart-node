@@ -7,6 +7,40 @@ ensure_gcp_context
 # Define version
 VERSION="${VERSION:-latest}"
 
+# Check and setup Node.js version using package.json engines
+if [ ! -f "package.json" ]; then
+    echo "Error: package.json not found"
+    exit 1
+fi
+
+# Get or set Node.js version requirement
+NODE_VERSION=$(node -p "try { require('./package.json').engines.node } catch(e) { 'not-set' }")
+if [ "$NODE_VERSION" = "not-set" ]; then
+    echo "Node.js version not specified in package.json, setting to >=18.0.0"
+    # Update package.json with engines field
+    node -e '
+        const fs = require("fs");
+        const package = JSON.parse(fs.readFileSync("package.json"));
+        package.engines = package.engines || {};
+        package.engines.node = ">=18.0.0";
+        fs.writeFileSync("package.json", JSON.stringify(package, null, 2));
+    '
+    NODE_VERSION=">=18.0.0"
+fi
+
+# Ensure nvm is loaded
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+
+# Install and use the latest compatible Node.js version
+echo "Installing compatible Node.js version..."
+nvm install $(nvm version-remote $(node -p "require('semver').minVersion('$NODE_VERSION')"))
+nvm use $(nvm version-remote $(node -p "require('semver').minVersion('$NODE_VERSION')"))
+
+# Install dependencies
+echo "Installing npm dependencies..."
+npm install
+
 # Build the Next.js application
 echo "Building Next.js application..."
 npm run build

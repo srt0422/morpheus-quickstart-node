@@ -150,7 +150,7 @@ Deploy all services with:
 ## Docker Images
 The deployment uses the following pre-built Docker Hub images:
 - NFA Proxy: `srt0422/openai-morpheus-proxy:latest`
-- Consumer Node: `srt0422/morpheus-marketplace:latest`
+- Consumer Node: `srt0422/morpheus-marketplace-consumer:latest`
 
 The Chat Web App is deployed directly from the source code to Google Cloud Run.
 
