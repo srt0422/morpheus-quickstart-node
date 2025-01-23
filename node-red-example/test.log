@@ -1,0 +1,23 @@
+
+
+  Node-RED Deployment E2E Tests
+Starting Node-RED app in development mode...
+Cleaning up existing containers...
+Checking Docker daemon...
+Docker daemon is running
+Building container...
+Running build command: cd /Users/scottterry/Workspace/AgentGarage/ExampleChatApp/node-red-example && source ./scripts/dev.sh && BUILD_MODE=dev BUILD_PLATFORM=linux/arm64 npm run build
+    1) "before all" hook for "should have Node-RED running with required nodes"
+
+
+  0 passing (15m)
+  1 failing
+
+  1) Node-RED Deployment E2E Tests
+       "before all" hook for "should have Node-RED running with required nodes":
+     Error: Timeout of 900000ms exceeded. For async tests and hooks, ensure "done()" is called; if returning a Promise, ensure it resolves. (/Users/scottterry/Workspace/AgentGarage/ExampleChatApp/node-red-example/test/deployment.test.js)
+      at listOnTimeout (node:internal/timers:581:17)
+      at process.processTimers (node:internal/timers:519:7)
+
+
+

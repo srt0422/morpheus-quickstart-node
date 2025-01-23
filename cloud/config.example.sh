@@ -5,6 +5,8 @@ export PROJECT_ID="your-project-id"
 export REGION="us-west1"
 export ZONE="us-west1-a"
 export DOCKER_REGISTRY="srt0422"  # Using Docker Hub registry instead of GCR
+export IMAGE_VERSION="1.0.0"
+export IMAGE_NAME="${DOCKER_REGISTRY}/nodered-example"
 
 # API Configuration
 export OPENAI_API_URL="" # Will be auto-populated during deployment with proxy URL
@@ -49,6 +51,14 @@ export LOG_COLOR="true"
 export ETH_NODE_USE_SUBSCRIPTIONS="false"
 export ETH_NODE_CHAIN_ID="421614"
 export ENVIRONMENT="development"
+
+# Provider Model Configuration
+export MODEL_ID="default-model"
+export MODEL_NAME="Default Model"
+export MODEL_API_TYPE="openai"
+export MODEL_API_URL="http://default-endpoint:8080"
+export MODEL_API_KEY="default-key"
+export MODELS_BUCKET="your-models-bucket"
 
 # Function to ensure correct GCP context
 ensure_gcp_context() {

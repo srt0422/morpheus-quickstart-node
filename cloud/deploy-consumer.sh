@@ -18,7 +18,7 @@ fi
 
 # Set image tag based on version if specified
 IMAGE_TAG="${CONSUMER_NODE_VERSION:-latest}"
-IMAGE_NAME="${DOCKER_REGISTRY}/morpheus-marketplace:${IMAGE_TAG}"
+IMAGE_NAME="${DOCKER_REGISTRY}/morpheus-marketplace-consumer:${IMAGE_TAG}"
 
 # Deploy Consumer Node
 echo "Deploying Consumer Node version: ${IMAGE_TAG}..."
