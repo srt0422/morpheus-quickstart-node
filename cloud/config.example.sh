@@ -55,7 +55,10 @@ export ENVIRONMENT="development"
 
 # Provider Model Configuration
 export MODEL_ID="default-model"
-export MODEL_NAME="Default Model"
+# arbitrum sepolia testnet model
+export MODEL_NAME=LMR-Hermes-2-Theta-Llama-3-8B
+# mainnet arbitrum model 
+# export MODEL_NAME="Llama 3.2 3B Instruct"
 export MODEL_API_TYPE="openai"
 export MODEL_API_URL="http://default-endpoint:8080"
 export MODEL_API_KEY="default-key"
