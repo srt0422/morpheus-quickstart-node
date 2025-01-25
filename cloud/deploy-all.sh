@@ -27,7 +27,13 @@ gcloud run services update nfa-proxy \
   --set-env-vars "MARKETPLACE_PORT=3333,\
 SESSION_DURATION=1h,\
 MARKETPLACE_BASE_URL=${CONSUMER_URL},\
-MARKETPLACE_URL=${CONSUMER_URL}/v1/chat/completions"
+MARKETPLACE_URL=${CONSUMER_URL}"
+
+# Update consumer node with marketplace URL
+gcloud run services update consumer-node \
+  --region $REGION \
+  --platform managed \
+  --update-env-vars "MARKETPLACE_BASE_URL=${CONSUMER_URL},MARKETPLACE_URL=${MARKETPLACE_URL}"
 
 # Deploy Web App
 echo "=== Deploying Web App ==="
