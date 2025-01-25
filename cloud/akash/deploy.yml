@@ -1,0 +1,90 @@
+---
+version: "2.0"
+
+services:
+  nfa-proxy:
+    image: ${DOCKER_REGISTRY}/openai-morpheus-proxy:${NFA_PROXY_VERSION}
+    expose:
+      - port: 8080
+        as: 80
+        to:
+          - global: true
+    env:
+      - INTERNAL_API_PORT=8080
+      - MARKETPLACE_PORT=3333
+      - MARKETPLACE_BASE_URL=${MARKETPLACE_BASE_URL}
+      - MARKETPLACE_URL=${MARKETPLACE_URL}
+      - SESSION_DURATION=1h
+
+  consumer-node:
+    image: ${DOCKER_REGISTRY}/morpheus-marketplace:${CONSUMER_NODE_VERSION}
+    expose:
+      - port: 8082
+        as: 80
+        to:
+          - global: true
+    env:
+      - PROXY_ADDRESS=0.0.0.0:3333
+      - WEB_ADDRESS=0.0.0.0:8082
+      - WALLET_PRIVATE_KEY=${WALLET_PRIVATE_KEY}
+      - DIAMOND_CONTRACT_ADDRESS=${DIAMOND_CONTRACT_ADDRESS}
+      - MOR_TOKEN_ADDRESS=${MOR_TOKEN_ADDRESS}
+      - EXPLORER_API_URL=${EXPLORER_API_URL}
+      - ETH_NODE_CHAIN_ID=${ETH_NODE_CHAIN_ID}
+      - ENVIRONMENT=${ENVIRONMENT}
+      - ETH_NODE_USE_SUBSCRIPTIONS=${ETH_NODE_USE_SUBSCRIPTIONS}
+      - ETH_NODE_ADDRESS=${ETH_NODE_ADDRESS}
+      - ETH_NODE_LEGACY_TX=${ETH_NODE_LEGACY_TX}
+      - PROXY_STORE_CHAT_CONTEXT=${PROXY_STORE_CHAT_CONTEXT}
+      - PROXY_STORAGE_PATH=${PROXY_STORAGE_PATH}
+      - LOG_COLOR=${LOG_COLOR}
+      - LOG_LEVEL=${LOG_LEVEL}
+      - LOG_FORMAT=${LOG_FORMAT}
+      - PROVIDER_CACHE_TTL=${PROVIDER_CACHE_TTL}
+      - MAX_CONCURRENT_SESSIONS=${MAX_CONCURRENT_SESSIONS}
+      - SESSION_TIMEOUT=${SESSION_TIMEOUT}
+      - PROXY_URL=${NFA_PROXY_URL}/v1
+
+profiles:
+  compute:
+    nfa-proxy:
+      resources:
+        cpu:
+          units: 1.0
+        memory:
+          size: 512Mi
+        storage:
+          size: 512Mi
+    consumer-node:
+      resources:
+        cpu:
+          units: 1.0
+        memory:
+          size: 512Mi
+        storage:
+          size: 512Mi
+
+  placement:
+    dcloud:
+      attributes:
+        host: akash
+      signedBy:
+        anyOf:
+          - akash1365yvmc4s7awdyj3n2sav7xfx76adc6dnmlx63
+      pricing:
+        nfa-proxy:
+          denom: uakt
+          amount: 1000
+        consumer-node:
+          denom: uakt
+          amount: 1000
+
+deployment:
+  nfa-proxy:
+    dcloud:
+      profile: nfa-proxy
+      count: 1
+  consumer-node:
+    dcloud:
+      profile: consumer-node
+      count: 1 
