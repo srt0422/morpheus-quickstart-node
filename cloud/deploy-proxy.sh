@@ -20,7 +20,7 @@ gcloud run deploy nfa-proxy \
   --set-env-vars "INTERNAL_API_PORT=8080,\
 MARKETPLACE_PORT=3333,\
 MARKETPLACE_BASE_URL=${MARKETPLACE_BASE_URL},\
-MARKETPLACE_URL=${MARKETPLACE_BASE_URL}/v1/chat/completions,\
+MARKETPLACE_URL=${MARKETPLACE_URL},\
 SESSION_DURATION=1h"
 
 check_deployment "nfa-proxy"

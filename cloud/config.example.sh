@@ -11,6 +11,9 @@ export IMAGE_NAME="${DOCKER_REGISTRY}/nodered-example"
 # API Configuration
 export OPENAI_API_URL="" # Will be auto-populated during deployment with proxy URL
 export CONSUMER_URL="" # Will be auto-populated during deployment with consumer URL
+export MARKETPLACE_BASE_URL="${CONSUMER_URL}" # Uses consumer URL as base
+export MARKETPLACE_URL="${MARKETPLACE_BASE_URL}" # Full URL for marketplace completions
+export NFA_PROXY_URL="" # Will be auto-populated during deployment
 
 # Contract Configuration
 export DIAMOND_CONTRACT_ADDRESS="0xb8C55cD613af947E73E262F0d3C54b7211Af16CF"
@@ -21,12 +24,6 @@ export INTERNAL_API_PORT="8080"  # Internal reference only, Cloud Run will provi
 export MARKETPLACE_PORT="3333"
 export SESSION_DURATION="1h"
 export MOR_TOKEN_ADDRESS=0x34a285a1b1c166420df5b6630132542923b5b27e
-
-# API Configuration
-export MARKETPLACE_BASE_URL="" # Will be auto-populated during deployment
-export MARKETPLACE_URL="" # Will be auto-populated during deployment
-export NFA_PROXY_URL="" # Will be auto-populated during deployment
-export CONSUMER_URL="" # Will be auto-populated during deployment
 
 # Container Versions (optional - defaults to 'latest' if not set)
 export NFA_PROXY_VERSION=""      # e.g. "v1.0.0" - for srt0422/openai-morpheus-proxy

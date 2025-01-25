@@ -17,8 +17,8 @@ if [ -z "$NFA_PROXY_URL" ]; then
 fi
 
 # Set image tag based on version if specified
-IMAGE_TAG="${CONSUMER_NODE_VERSION:-latest}"
-IMAGE_NAME="${DOCKER_REGISTRY}/morpheus-marketplace-consumer:${IMAGE_TAG}"
+IMAGE_TAG="v0.0.19"
+IMAGE_NAME="${DOCKER_REGISTRY}/morpheus-marketplace:${IMAGE_TAG}"
 
 # Deploy Consumer Node
 echo "Deploying Consumer Node version: ${IMAGE_TAG}..."
@@ -62,7 +62,7 @@ export CONSUMER_URL
 # Update marketplace URLs
 gcloud run services update nfa-proxy \
     --region $REGION \
-    --update-env-vars "MARKETPLACE_BASE_URL=${CONSUMER_URL},MARKETPLACE_URL=${CONSUMER_URL}/v1/chat/completions"
+    --update-env-vars "MARKETPLACE_BASE_URL=${CONSUMER_URL},MARKETPLACE_URL=${CONSUMER_URL}"
 
 # Update config.sh with the correct CONSUMER_URL using a .bak backup
 sed -i.bak "s|^export CONSUMER_URL=.*|export CONSUMER_URL=\"${CONSUMER_URL}\"|" "${SCRIPT_DIR}/config.sh" && rm -f "${SCRIPT_DIR}/config.sh.bak"
@@ -72,7 +72,8 @@ echo "Consumer URL: ${CONSUMER_URL}"
 echo "Updating consumer-node with WEB_PUBLIC_URL=${CONSUMER_URL}..."
 gcloud run services update consumer-node \
     --region $REGION \
-    --update-env-vars "WEB_PUBLIC_URL=${CONSUMER_URL}"
+    --platform managed \
+    --update-env-vars "MARKETPLACE_BASE_URL=${CONSUMER_URL},MARKETPLACE_URL=${MARKETPLACE_URL}"
 
 echo "Checking consumer-node health via ${CONSUMER_URL}/healthcheck endpoint..."
 if ! check_service_health "${CONSUMER_URL}/healthcheck"; then
