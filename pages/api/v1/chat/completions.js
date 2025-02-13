@@ -1,7 +1,6 @@
 import OpenAI from "openai";
-import { NextResponse } from 'next/server';
 
-const MODEL = process.env.MODEL_NAME || "nfa-llama2";
+const MODEL = process.env.MODEL_NAME || "LMR-Hermes-2-Theta-Llama-3-8B";
 console.log('API Config:', {
   baseURL: process.env.OPENAI_API_URL,
   model: MODEL
@@ -84,4 +83,4 @@ export default async function handler(req, res) {
   } finally {
     res.end();
   }
-}
+} 

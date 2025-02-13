@@ -25,6 +25,10 @@ export MARKETPLACE_PORT="3333"
 export SESSION_DURATION="1h"
 export MOR_TOKEN_ADDRESS=0x34a285a1b1c166420df5b6630132542923b5b27e
 
+# Authentication Configuration
+export CONSUMER_USERNAME="admin"  # Username for proxy and consumer node authentication
+export CONSUMER_PASSWORD="your-secure-password"  # Password for proxy and consumer node authentication
+
 # Container Versions (optional - defaults to 'latest' if not set)
 export NFA_PROXY_VERSION=""      # e.g. "v1.0.0" - for srt0422/openai-morpheus-proxy
 export CONSUMER_NODE_VERSION="v0.0.16"  # e.g. "v1.0.0" - for srt0422/morpheus-marketplace-consumer
