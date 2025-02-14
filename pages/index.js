@@ -1,3 +1,4 @@
+import React from 'react';
 import Head from "next/head";
 import { useState, useEffect, useRef } from "react";
 import styles from "./index.module.css";
@@ -7,7 +8,9 @@ export default function Home() {
   const [messages, setMessages] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
+  const [isTyping, setIsTyping] = useState(false);
   const chatContainerRef = useRef(null);
+  const typingTimerRef = useRef(null);
 
   useEffect(() => {
     // Scroll to the bottom of the chat container whenever messages changes
@@ -20,15 +23,17 @@ export default function Home() {
   const clearChat = () => {
     setMessages([]);
     setError('');
+    setIsTyping(false);
   };
 
   const onSubmit = async (event) => {
     event.preventDefault();
     setError('');
     setIsLoading(true);
+    setIsTyping(true);
 
     try {
-      const response = await fetch('/api/generate', {
+      const response = await fetch('/api/v1/chat/completions', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -40,6 +45,10 @@ export default function Home() {
         })
       });
 
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
       // Add user message immediately
       setMessages(prev => [...prev, { role: 'user', content: messageInput }]);
       setMessageInput('');
@@ -48,6 +57,7 @@ export default function Home() {
       const reader = response.body.getReader();
       const decoder = new TextDecoder();
       let assistantMessage = '';
+      let lastUpdateTime = Date.now();
 
       while (true) {
         const { done, value } = await reader.read();
@@ -60,8 +70,37 @@ export default function Home() {
           if (line.startsWith('data: ')) {
             try {
               const data = JSON.parse(line.slice(6));
-              if (data.content) {
-                assistantMessage += data.content;
+              
+              // Handle connection status
+              if (data.status === 'connected') {
+                continue;
+              }
+
+              // Handle errors
+              if (data.error) {
+                throw new Error(data.error);
+              }
+
+              // Update message with new content
+              if (data.content || data.fullResponse) {
+                assistantMessage = data.fullResponse || assistantMessage + (data.content || '');
+                
+                // Throttle updates to avoid excessive re-renders
+                const now = Date.now();
+                if (now - lastUpdateTime > 50) { // Update every 50ms at most
+                  setMessages(prev => {
+                    const lastMessage = prev[prev.length - 1];
+                    if (lastMessage?.role === 'assistant') {
+                      return [...prev.slice(0, -1), { role: 'assistant', content: assistantMessage }];
+                    }
+                    return [...prev, { role: 'assistant', content: assistantMessage }];
+                  });
+                  lastUpdateTime = now;
+                }
+              }
+
+              // Handle stream completion
+              if (data.done) {
                 setMessages(prev => {
                   const lastMessage = prev[prev.length - 1];
                   if (lastMessage?.role === 'assistant') {
@@ -69,12 +108,7 @@ export default function Home() {
                   }
                   return [...prev, { role: 'assistant', content: assistantMessage }];
                 });
-              }
-              if (data.error) {
-                throw new Error(data.error);
-              }
-              if (data.done) {
-                // Stream is complete
+                setIsTyping(false);
                 break;
               }
             } catch (parseError) {
@@ -87,6 +121,7 @@ export default function Home() {
     } catch (error) {
       console.error('Error:', error);
       setError(error.message || 'Failed to send message');
+      setIsTyping(false);
     } finally {
       setIsLoading(false);
     }
@@ -110,6 +145,13 @@ export default function Home() {
             {msg.content}
           </div>
         ))}
+        {isTyping && (
+          <div className={styles.typingIndicator}>
+            <span>●</span>
+            <span>●</span>
+            <span>●</span>
+          </div>
+        )}
       </div>
       <div className={styles.messageInputContainer}>
         <form onSubmit={onSubmit}>

@@ -7,7 +7,7 @@ source "$(dirname "$0")/config.sh"
 ensure_gcp_context
 
 # Set image tag based on version if specified
-IMAGE_TAG="${NFA_PROXY_VERSION:-latest}"
+IMAGE_TAG="${NFA_PROXY_VERSION}"
 IMAGE_NAME="${DOCKER_REGISTRY}/openai-morpheus-proxy:${IMAGE_TAG}"
 
 # Deploy NFA Proxy
@@ -21,6 +21,9 @@ gcloud run deploy nfa-proxy \
 MARKETPLACE_PORT=3333,\
 MARKETPLACE_BASE_URL=${MARKETPLACE_BASE_URL},\
 MARKETPLACE_URL=${MARKETPLACE_URL},\
+CONSUMER_USERNAME=${CONSUMER_USERNAME},\
+CONSUMER_PASSWORD=${CONSUMER_PASSWORD},\
+CONSUMER_NODE_URL=${CONSUMER_URL},\
 SESSION_DURATION=1h"
 
 check_deployment "nfa-proxy"
@@ -45,3 +48,5 @@ echo "NFA Proxy URL: ${NFA_PROXY_URL}"
 
 # Update config.sh with the correct OPENAI_API_URL using a .bak backup
 sed -i.bak "s|^export OPENAI_API_URL=.*|export OPENAI_API_URL=\"${NFA_PROXY_URL}\"|" "$(dirname "$0")/config.sh" && rm -f "$(dirname "$0")/config.sh.bak"
+
+export PROXY_IMAGE_TAG="v0.0.25"

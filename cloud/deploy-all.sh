@@ -9,6 +9,11 @@ source "${SCRIPT_DIR}/config.sh"
 echo "=== Deploying NFA Proxy ==="
 source "${SCRIPT_DIR}/deploy-proxy.sh"
 
+# Source the temporary environment file
+if [ -f "${SCRIPT_DIR}/.env.tmp" ]; then
+    source "${SCRIPT_DIR}/.env.tmp"
+fi
+
 if [ -z "$NFA_PROXY_URL" ]; then
     echo "Error: NFA Proxy URL not set after deployment"
     exit 1
@@ -24,9 +29,7 @@ echo "=== Updating NFA Proxy configuration ==="
 gcloud run services update nfa-proxy \
   --platform managed \
   --region $REGION \
-  --set-env-vars "MARKETPLACE_PORT=3333,\
-SESSION_DURATION=1h,\
-MARKETPLACE_BASE_URL=${CONSUMER_URL},\
+  --update-env-vars "MARKETPLACE_BASE_URL=${CONSUMER_URL},\
 MARKETPLACE_URL=${CONSUMER_URL}"
 
 # Update consumer node with marketplace URL
