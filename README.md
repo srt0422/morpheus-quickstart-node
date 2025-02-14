@@ -124,7 +124,10 @@ cd morpheus-quickstart-node
 cp cloud/config.example.sh cloud/config.sh
 ```
 
-2. Edit `cloud/config.sh` with your settings:
+2. Edit `cloud/config.sh` with your settings:   
+  - Add your GCP project id (PROJECT_ID)
+  - Add your wallet private key (WALLET_PRIVATE_KEY)
+  - Add your password for the consumer node (CONSUMER_PASSWORD)
 ```bash
 export PROJECT_ID="your-project-id"
 export REGION="us-central1"
@@ -135,6 +138,11 @@ export DOCKER_REGISTRY="srt0422"  # Using Docker Hub registry instead of GCR
 export NFA_PROXY_PORT="8080"
 export CONSUMER_PORT="3333"
 export WEBAPP_PORT="3000"
+
+# Authentication Configuration
+export CONSUMER_USERNAME="admin"  # Username for proxy and consumer node authentication
+export CONSUMER_PASSWORD="your-secure-password"  # Password for proxy and consumer node authentication
+
 
 # Wallet Configuration
 export WALLET_PRIVATE_KEY="your-wallet-private-key"

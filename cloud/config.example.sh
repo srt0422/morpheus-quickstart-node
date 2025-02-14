@@ -10,7 +10,7 @@ export IMAGE_NAME="${DOCKER_REGISTRY}/nodered-example"
 
 # API Configuration
 export OPENAI_API_URL="" # Will be auto-populated during deployment with proxy URL
-export CONSUMER_URL="" # Will be auto-populated during deployment with consumer URL
+export CONSUMER_URL="localhost:8080" # Will be auto-populated during deployment with consumer URL
 export MARKETPLACE_BASE_URL="${CONSUMER_URL}" # Uses consumer URL as base
 export MARKETPLACE_URL="${MARKETPLACE_BASE_URL}" # Full URL for marketplace completions
 export NFA_PROXY_URL="" # Will be auto-populated during deployment
@@ -30,8 +30,8 @@ export CONSUMER_USERNAME="admin"  # Username for proxy and consumer node authent
 export CONSUMER_PASSWORD="your-secure-password"  # Password for proxy and consumer node authentication
 
 # Container Versions (optional - defaults to 'latest' if not set)
-export NFA_PROXY_VERSION=""      # e.g. "v1.0.0" - for srt0422/openai-morpheus-proxy
-export CONSUMER_NODE_VERSION="v0.0.16"  # e.g. "v1.0.0" - for srt0422/morpheus-marketplace-consumer
+export NFA_PROXY_VERSION="v0.0.31"      # e.g. "v1.0.0" - for srt0422/openai-morpheus-proxy
+export CONSUMER_NODE_VERSION="v0.0.19"  # e.g. "v1.0.0" - for srt0422/morpheus-marketplace-consumer
 export VERSION="v1.0.22"
 
 # Consumer Node Configuration
