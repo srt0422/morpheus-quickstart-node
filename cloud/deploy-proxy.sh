@@ -11,9 +11,9 @@ IMAGE_TAG="${NFA_PROXY_VERSION}"
 IMAGE_NAME="${DOCKER_REGISTRY}/openai-morpheus-proxy:${IMAGE_TAG}"
 
 # Deploy NFA Proxy
-echo "Deploying NFA Proxy version: ${IMAGE_TAG}..."
+echo "Deploying NFA Proxy version: ${IMAGE_NAME}..."
 gcloud run deploy nfa-proxy \
-  --image $IMAGE_NAME \
+  --image "$IMAGE_NAME" \
   --platform managed \
   --region $REGION \
   --allow-unauthenticated \

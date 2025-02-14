@@ -55,11 +55,33 @@ if [ -z "$NFA_PROXY_URL" ]; then
 fi
 
 # Set image tag and image name.
-IMAGE_TAG="v2.2.0"
+IMAGE_TAG="$CONSUMER_NODE_VERSION"
+
 IMAGE_NAME="gcr.io/${PROJECT_ID}/morpheus-lumerin-node:${IMAGE_TAG}"
 
+# Pull the image from Docker Hub
+echo "Pulling image ${DOCKER_REGISTRY}/morpheus-marketplace-consumer:${IMAGE_TAG}..."
+docker pull ${DOCKER_REGISTRY}/morpheus-marketplace-consumer:${IMAGE_TAG}
+
+
+# Tag the image for Google Container Registry
+echo "Tagging image for GCR..."
+docker tag ${DOCKER_REGISTRY}/morpheus-marketplace-consumer:${IMAGE_TAG} gcr.io/${PROJECT_ID}/morpheus-lumerin-node:${IMAGE_TAG}
+
+# Push the image to Google Container Registry
+echo "Pushing image to GCR... $IMAGE_NAME"
+docker push $IMAGE_NAME
+
+# Look up the current service account being used
+CURRENT_SA=$(gcloud auth list --filter=status:ACTIVE --format="value(account)")
+echo "Using service account: $CURRENT_SA"
+
+# Update the IAM binding with the current service account
+# Add "user:" prefix for user accounts
+gcloud projects add-iam-policy-binding $PROJECT_ID --member="user:${CURRENT_SA}" --role="roles/secretmanager.secretAccessor"
+
 # Deploy Consumer Node with the secret mounted as a .cookie file.
-echo "Deploying Consumer Node version: ${IMAGE_TAG}..."
+echo "Deploying Consumer Node version: ${IMAGE_NAME}..."
 gcloud run deploy consumer-node \
   --image "$IMAGE_NAME" \
   --platform managed \
