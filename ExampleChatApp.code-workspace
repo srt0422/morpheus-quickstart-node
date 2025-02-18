@@ -1,0 +1,14 @@
+{
+	"folders": [
+		{
+			"path": "."
+		},
+		{
+			"path": "../UniversalBuilder"
+		},
+		{
+			"path": "../BaseImage"
+		}
+	],
+	"settings": {}
+}
