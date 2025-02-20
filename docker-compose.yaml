@@ -31,7 +31,7 @@ services:
       - WALLET_PRIVATE_KEY=${WALLET_PRIVATE_KEY}
       - WEB_ADDRESS=0.0.0.0:8082
     ports:
-      - "8082:8082"
+      - "${CONSUMER_NODE_PORT}:8082"
     volumes:
       - ./secrets/.cookie:/secrets/.cookie  # Mounts local cookie file to container
     networks:
@@ -43,13 +43,13 @@ services:
       - CONSUMER_USERNAME=${CONSUMER_USERNAME}
       - CONSUMER_PASSWORD=${CONSUMER_PASSWORD}
       - CONSUMER_NODE_URL=${CONSUMER_URL}
-      - INTERNAL_API_PORT=8080
+      - INTERNAL_API_PORT=${INTERNAL_API_PORT}
       - MARKETPLACE_PORT=3333
       - MARKETPLACE_BASE_URL=${CONSUMER_URL}
       - MARKETPLACE_URL=${MARKETPLACE_URL}
       - SESSION_DURATION=1h
     ports:
-      - "8081:8080"
+      - "${NFA_PROXY_PORT}:8080"
     networks:
       - morpheus-network
     depends_on:
@@ -63,7 +63,7 @@ services:
       - NEXT_PUBLIC_CHAT_COMPLETIONS_PATH=${CHAT_COMPLETIONS_PATH}
       - OPENAI_API_URL=${OPEN_AI_API_URL}
     ports:
-      - "8080:8080"
+      - "${CHAT_APP_PORT}:8080"
     networks:
       - morpheus-network
     depends_on:

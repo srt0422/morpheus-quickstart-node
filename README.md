@@ -172,7 +172,12 @@ Necessary services can be stood up using Docker Compose:
 docker compose up -d
 ```
 
-Once up and running, status of the Docker containers can be confirmed with `docker ps -a`. 
+Once up and running, status of the Docker containers can be confirmed with `docker ps -a`.
+
+Services can then be accessed on the following ports:
+- `8080`: Morpheus Chat App
+- `8081`: Morpheus NFA Proxy
+- `8082`: Morpheus Consumer Node
 
 ### Individual Service Deployment
 Deploy services separately:
