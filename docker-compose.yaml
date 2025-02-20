@@ -1,0 +1,75 @@
+version: "3.8"
+
+services:
+  morpheus-consumer-node:
+    image: ${DOCKER_REGISTRY}/morpheus-marketplace-consumer:${CONSUMER_NODE_VERSION:-latest}
+    environment:
+      - BLOCKCHAIN_HTTP_URL=${BLOCKCHAIN_HTTP_URL}
+      - BLOCKCHAIN_WS_URL=${BLOCKCHAIN_WS_URL}
+      - BLOCKSCOUT_API_URL=${EXPLORER_API_URL}
+      - COOKIE_FILE_PATH=/secrets/.cookie
+      - CONSUMER_PASSWORD=${CONSUMER_PASSWORD}
+      - CONSUMER_USERNAME=${CONSUMER_USERNAME}
+      - DIAMOND_CONTRACT_ADDRESS=${DIAMOND_CONTRACT_ADDRESS}
+      - ENVIRONMENT=${ENVIRONMENT}
+      - ETH_NODE_ADDRESS=${ETH_NODE_ADDRESS}
+      - ETH_NODE_CHAIN_ID=${ETH_NODE_CHAIN_ID}
+      - ETH_NODE_LEGACY_TX=${ETH_NODE_LEGACY_TX}
+      - ETH_NODE_USE_SUBSCRIPTIONS=${ETH_NODE_USE_SUBSCRIPTIONS}
+      - EXPLORER_API_URL=${EXPLORER_API_URL}
+      - GO_ENV=production
+      - LOG_COLOR=${LOG_COLOR}
+      - LOG_FORMAT=${LOG_FORMAT:-text}
+      - LOG_LEVEL=${LOG_LEVEL:-info}
+      - MAX_CONCURRENT_SESSIONS=${MAX_CONCURRENT_SESSIONS:-100}
+      - MOR_TOKEN_ADDRESS=${MOR_TOKEN_ADDRESS}
+      - PROXY_ADDRESS=0.0.0.0:3333
+      - PROXY_STORE_CHAT_CONTEXT=${PROXY_STORE_CHAT_CONTEXT}
+      - PROXY_STORAGE_PATH=${PROXY_STORAGE_PATH}
+      - PROVIDER_CACHE_TTL=${PROVIDER_CACHE_TTL:-60}
+      - SESSION_TIMEOUT=${SESSION_TIMEOUT:-3600}
+      - WALLET_PRIVATE_KEY=${WALLET_PRIVATE_KEY}
+      - WEB_ADDRESS=0.0.0.0:8082
+    ports:
+      - "${CONSUMER_NODE_PORT}:8082"
+    volumes:
+      - ./secrets/.cookie:/secrets/.cookie  # Mounts local cookie file to container
+    networks:
+      - morpheus-network
+
+  morpheus-nfa-proxy:
+    image: ${DOCKER_REGISTRY}/openai-morpheus-proxy:${NFA_PROXY_VERSION:-latest}
+    environment:
+      - CONSUMER_USERNAME=${CONSUMER_USERNAME}
+      - CONSUMER_PASSWORD=${CONSUMER_PASSWORD}
+      - CONSUMER_NODE_URL=${CONSUMER_URL}
+      - INTERNAL_API_PORT=${INTERNAL_API_PORT}
+      - MARKETPLACE_PORT=3333
+      - MARKETPLACE_BASE_URL=${CONSUMER_URL}
+      - MARKETPLACE_URL=${MARKETPLACE_URL}
+      - SESSION_DURATION=1h
+    ports:
+      - "${NFA_PROXY_PORT}:8080"
+    networks:
+      - morpheus-network
+    depends_on:
+      - morpheus-consumer-node
+
+  morpheus-chat-app:
+    image: ${DOCKER_REGISTRY}/chat-web-app:${CHAT_APP_VERSION:-latest}
+    environment:
+      - CHAT_COMPLETIONS_PATH=${CHAT_COMPLETIONS_PATH}
+      - MODEL_NAME=${MODEL_NAME}
+      - NEXT_PUBLIC_CHAT_COMPLETIONS_PATH=${CHAT_COMPLETIONS_PATH}
+      - OPENAI_API_URL=${OPEN_AI_API_URL}
+    ports:
+      - "${CHAT_APP_PORT}:8080"
+    networks:
+      - morpheus-network
+    depends_on:
+      - morpheus-consumer-node
+      - morpheus-nfa-proxy
+
+networks:
+  morpheus-network:
+    driver: bridge
