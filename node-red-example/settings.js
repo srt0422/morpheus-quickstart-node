@@ -4,7 +4,7 @@ module.exports = {
     uiPort: process.env.PORT || 1880,
     uiHost: "0.0.0.0",
     flowFile: 'flows.json',
-    userDir: '/data',
+    userDir: './data',
     nodesDir: [
         path.join(__dirname, 'UniversalBuilder/nodes')
     ],

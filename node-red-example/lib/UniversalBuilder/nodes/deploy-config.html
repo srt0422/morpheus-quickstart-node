@@ -1,0 +1,32 @@
+<script type="text/javascript">
+    RED.nodes.registerType('deploy-config', {
+        category: 'config',
+        defaults: {
+            name: { value: "" },
+            walletCredentials: { value: "", required: true },
+            apiKey: { value: "" },
+            environmentVars: { value: {} }
+        },
+        credentials: {
+            walletSecret: { type: "password" }
+        },
+        label: function() {
+            return this.name || "Configuration";  // No "Deploy" prefix to remove
+        }
+    });
+</script>
+
+<script type="text/html" data-template-name="config">
+    <div class="form-row">
+        <label for="node-config-input-name"><i class="fa fa-tag"></i> Name</label>
+        <input type="text" id="node-config-input-name">
+    </div>
+    <div class="form-row">
+        <label for="node-config-input-walletCredentials"><i class="fa fa-key"></i> Wallet Credentials</label>
+        <input type="text" id="node-config-input-walletCredentials">
+    </div>
+    <div class="form-row">
+        <label for="node-config-input-apiKey"><i class="fa fa-lock"></i> API Key</label>
+        <input type="text" id="node-config-input-apiKey">
+    </div>
+</script> 

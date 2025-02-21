@@ -1,0 +1,26 @@
+<script type="text/html" data-template-name="app">
+    <div class="form-row">
+        <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
+        <input type="text" id="node-input-name" placeholder="Name">
+    </div>
+</script>
+
+<script type="text/html" data-help-name="app">
+    <p>A node for deploying applications in the Morpheus network.</p>
+</script>
+
+<script type="text/javascript">
+    RED.nodes.registerType('deploy-app',{
+        category: 'Future',
+        color: '#4363d8',
+        defaults: {
+            name: {value:""}
+        },
+        inputs:1,
+        outputs:1,
+        icon: "font-awesome/fa-cube",
+        label: function() {
+            return this.name||"App";
+        }
+    });
+</script> 

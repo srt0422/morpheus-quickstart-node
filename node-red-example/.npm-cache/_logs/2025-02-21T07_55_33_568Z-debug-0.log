@@ -1,0 +1,13 @@
+0 verbose cli /Users/scottterry/.nvm/versions/node/v20.18.3/bin/node /Users/scottterry/.nvm/versions/node/v20.18.3/bin/npm
+1 info using npm@10.8.2
+2 info using node@v20.18.3
+3 silly config load:file:/Users/scottterry/.nvm/versions/node/v20.18.3/lib/node_modules/npm/npmrc
+4 silly config load:file:/Users/scottterry/Workspace/AgentGarage/ExampleChatApp/node-red-example/.npmrc
+5 silly config load:file:/Users/scottterry/.npmrc
+6 silly config load:file:/Users/scottterry/.nvm/versions/node/v20.18.3/etc/npmrc
+7 verbose title npm run run
+8 verbose argv "run" "run"
+9 verbose logfile logs-max:10 dir:/Users/scottterry/Workspace/AgentGarage/ExampleChatApp/node-red-example/.npm-cache/_logs/2025-02-21T07_55_33_568Z-
+10 verbose logfile /Users/scottterry/Workspace/AgentGarage/ExampleChatApp/node-red-example/.npm-cache/_logs/2025-02-21T07_55_33_568Z-debug-0.log
+11 silly logfile start cleaning logs, removing 1 files
+12 silly logfile done cleaning log files

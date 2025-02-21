@@ -1,0 +1,64 @@
+21 Feb 11:19:32 - [info] 
+
+Welcome to Node-RED
+===================
+
+21 Feb 11:19:32 - [info] Node-RED version: v4.0.9
+21 Feb 11:19:32 - [info] Node.js  version: v20.18.3
+21 Feb 11:19:32 - [info] Darwin 24.3.0 arm64 LE
+21 Feb 11:19:32 - [info] Loading palette nodes
+21 Feb 11:19:32 - [info] Settings file  : /Users/scottterry/Workspace/AgentGarage/ExampleChatApp/node-red-example/settings.js
+21 Feb 11:19:32 - [info] HTTP Static    : /Users/scottterry/Workspace/AgentGarage/ExampleChatApp/node-red-example/public > /admin/
+21 Feb 11:19:32 - [info] HTTP Static    : /Users/scottterry/Workspace/AgentGarage/ExampleChatApp/node-red-example/lib > /admin/lib/
+21 Feb 11:19:32 - [info] HTTP Static    : /Users/scottterry/Workspace/AgentGarage/ExampleChatApp/node-red-example/css > /admin/css/
+21 Feb 11:19:32 - [info] Context store  : 'default' [module=memory]
+21 Feb 11:19:32 - [info] User directory : /Users/scottterry/Workspace/AgentGarage/ExampleChatApp/node-red-example
+21 Feb 11:19:32 - [warn] Projects disabled : editorTheme.projects.enabled=false
+21 Feb 11:19:32 - [info] Flows file     : /Users/scottterry/Workspace/AgentGarage/ExampleChatApp/node-red-example/flows.json
+21 Feb 11:19:32 - [info] Server now running at http://127.0.0.1:1880/admin/
+21 Feb 11:19:32 - [info] Starting flows
+21 Feb 11:19:32 - [info] Started flows
+21 Feb 11:20:22 - [info] [debug:Deployment Result] 
+{
+  payload: {
+    proxyUrl: 'https://nfa-proxy-5u4is4kvbq-uw.a.run.app',
+    status: 'deployed',
+    action: 'deploy'
+  },
+  deploymentId: 'c5dc03b4da9e21b1',
+  timestamp: '2025-02-21T19:19:58.323Z',
+  _msgid: 'c5dc03b4da9e21b1',
+  config: { OPENAI_API_URL: 'https://nfa-proxy-5u4is4kvbq-uw.a.run.app' }
+}
+21 Feb 11:20:22 - [warn] [http response:Success Response] No response object
+21 Feb 11:20:22 - [warn] [http response:Success Response] No response object
+21 Feb 11:58:19 - [info] [debug:Deployment Result] 
+{
+  payload: {
+    proxyUrl: 'https://nfa-proxy-5u4is4kvbq-uw.a.run.app',
+    status: 'deployed',
+    action: 'deploy'
+  },
+  deploymentId: '4e0a21ba90ee8ce4',
+  timestamp: '2025-02-21T19:57:51.966Z',
+  _msgid: '4e0a21ba90ee8ce4',
+  config: { OPENAI_API_URL: 'https://nfa-proxy-5u4is4kvbq-uw.a.run.app' }
+}
+21 Feb 11:58:19 - [warn] [http response:Success Response] No response object
+21 Feb 11:58:19 - [warn] [http response:Success Response] No response object
+21 Feb 11:59:49 - [info] [debug:Deployment Result] 
+{
+  payload: {
+    proxyUrl: 'https://nfa-proxy-5u4is4kvbq-uw.a.run.app',
+    status: 'deployed',
+    action: 'deploy'
+  },
+  deploymentId: '8f6d3ce7cd2578e4',
+  timestamp: '2025-02-21T19:59:32.922Z',
+  _msgid: '8f6d3ce7cd2578e4',
+  config: { OPENAI_API_URL: 'https://nfa-proxy-5u4is4kvbq-uw.a.run.app' }
+}
+21 Feb 11:59:49 - [warn] [http response:Success Response] No response object
+21 Feb 11:59:49 - [warn] [http response:Success Response] No response object
+21 Feb 12:02:20 - [info] Stopping flows
+21 Feb 12:02:20 - [info] Stopped flows

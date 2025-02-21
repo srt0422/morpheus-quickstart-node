@@ -1,85 +1,115 @@
-FROM nodered/node-red:latest-20
+# syntax=docker/dockerfile:1.4
 
+# Base stage with shared dependencies
+FROM nodered/node-red:latest-20 as base
 WORKDIR /usr/src/node-red
-
-# Switch to root to handle installations
 USER root
 
-# Install system dependencies and Google Cloud SDK
-RUN apk add --no-cache \
-    python3 \
-    curl \
-    bash \
-    && curl -O https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-cli-458.0.0-linux-x86_64.tar.gz \
-    && tar -xf google-cloud-cli-458.0.0-linux-x86_64.tar.gz \
-    && ./google-cloud-sdk/install.sh --quiet --path-update=true \
-    && ln -s /usr/src/node-red/google-cloud-sdk/bin/gcloud /usr/local/bin/gcloud \
-    && ln -s /usr/src/node-red/google-cloud-sdk/bin/gsutil /usr/local/bin/gsutil \
-    && rm google-cloud-cli-458.0.0-linux-x86_64.tar.gz
+# Install minimal system dependencies needed for both dev and prod
+RUN apk add --no-cache bash
 
-# Copy package files first
-COPY --chown=1000:1000 package*.json ./
+# Set common environment variables
+ENV NODE_PATH=/usr/src/node-red/node_modules:/data/node_modules \
+    FLOWS=flows.json
 
-# Create UniversalBuilder directory and set permissions
-RUN mkdir -p UniversalBuilder && chown 1000:1000 UniversalBuilder
-
-# Copy UniversalBuilder files with correct ownership
-COPY --chown=1000:1000 UniversalBuilder/package*.json ./UniversalBuilder/
-COPY --chown=1000:1000 UniversalBuilder/nodes ./UniversalBuilder/nodes/
-
-# Install all dependencies in dev mode, production dependencies only in prod mode
-ARG NODE_ENV=production
-ENV NODE_ENV=${NODE_ENV}
-
-# Switch to node-red user for npm operations
-USER node-red
-
-# Install dependencies
-RUN if [ "$NODE_ENV" = "production" ]; then \
-        npm install --omit=dev && \
-        cd UniversalBuilder && npm install --omit=dev && cd ..; \
-    else \
-        npm install && \
-        cd UniversalBuilder && npm install && cd ..; \
-    fi
-
+# Development stage
+FROM base as development
 USER root
 
-# Create symbolic link for UniversalBuilder nodes in Node-RED nodes directory
-RUN mkdir -p /data/node_modules && \
-    ln -s /usr/src/node-red/UniversalBuilder /data/node_modules/node-red-contrib-universal-deploy
+# Install development-specific system dependencies
+RUN apk add --no-cache python3 curl && \
+    # Install Google Cloud SDK
+    curl -O https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-cli-458.0.0-linux-x86_64.tar.gz && \
+    tar -xf google-cloud-cli-458.0.0-linux-x86_64.tar.gz && \
+    ./google-cloud-sdk/install.sh --quiet --path-update=true && \
+    ln -s /usr/src/node-red/google-cloud-sdk/bin/gcloud /usr/local/bin/gcloud && \
+    ln -s /usr/src/node-red/google-cloud-sdk/bin/gsutil /usr/local/bin/gsutil && \
+    rm google-cloud-cli-458.0.0-linux-x86_64.tar.gz
 
-# Add UniversalBuilder to Node-RED's node path
-ENV NODE_PATH=/usr/src/node-red/node_modules:/usr/src/node-red/UniversalBuilder:/data/node_modules
-
-# Copy application files with correct ownership
-COPY --chown=1000:1000 flows.json ./
-COPY --chown=1000:1000 settings.js ./
-COPY --chown=1000:1000 lib ./lib/
-COPY --chown=1000:1000 public ./public/
-COPY --chown=1000:1000 css ./css/
-COPY --chown=1000:1000 nodemon.json ./
-COPY --chown=1000:1000 scripts/start.sh ./scripts/start.sh
-
-# Ensure lib directory has correct permissions and exists
-RUN mkdir -p /usr/src/node-red/lib && chown -R 1000:1000 /usr/src/node-red/lib
-
-# Ensure start script is executable
-RUN chmod +x scripts/start.sh
-
-# Create data directory with correct permissions
-RUN mkdir -p /data && chown -R 1000:1000 /data
-
-# Copy logo to Node-RED UI assets directory
-RUN mkdir -p /usr/src/node-red/node_modules/node-red/public/red/images/
-COPY --chown=1000:1000 public/logo.png /usr/src/node-red/node_modules/node-red/public/red/images/node-red.png
-
-# Set environment variables
-ENV FLOWS=flows.json
+# Add Google Cloud SDK to PATH for development
 ENV PATH=${PATH}:/usr/src/node-red/google-cloud-sdk/bin
 
-# Switch back to node-red user
-USER node-red
+# Configure npm for better caching
+ENV NPM_CACHE_DIR=/usr/src/node-red/.npm-cache \
+    npm_config_cache=/usr/src/node-red/.npm-cache \
+    npm_config_prefer_offline=true
 
-# Set the command
-CMD ["npx", "node-red", "-u", "/data", "-s", "settings.js"] 
+# Create necessary directories with correct permissions
+RUN mkdir -p /data \
+            /data/node_modules \
+            /usr/src/node-red/lib \
+            /usr/src/node-red/node_modules \
+            /usr/src/node-red/.npm-cache && \
+    chown -R node-red:node-red /data \
+                              /usr/src/node-red/lib \
+                              /usr/src/node-red/.npm-cache \
+                              /usr/src/node-red/node_modules
+
+# Copy package files for dependency installation
+COPY --chown=node-red:node-red package*.json ./
+
+# Switch to node-red user and install dependencies
+USER node-red
+RUN npm install --prefer-offline --no-audit --no-progress
+
+# Copy application files
+COPY --chown=node-red:node-red flows.json settings.js nodemon.json ./
+COPY --chown=node-red:node-red lib ./lib/
+COPY --chown=node-red:node-red public ./public/
+COPY --chown=node-red:node-red css ./css/
+COPY --chown=node-red:node-red public/logo.png /usr/src/node-red/node_modules/node-red/public/red/images/node-red.png
+
+# Install UniversalBuilder from local directory
+USER node-red
+RUN cd /usr/src/node-red/lib/UniversalBuilder && \
+    npm install --no-package-lock && \
+    cd /usr/src/node-red && \
+    npm install ./lib/UniversalBuilder
+
+USER node-red
+CMD ["npx", "nodemon", "--exec", "node-red", "-u", "/data", "-s", "settings.js"]
+
+# Production stage
+FROM base as production
+USER root
+
+# Configure npm for better caching
+ENV NPM_CACHE_DIR=/usr/src/node-red/.npm-cache \
+    npm_config_cache=/usr/src/node-red/.npm-cache \
+    npm_config_prefer_offline=true
+
+# Create necessary directories with correct permissions
+RUN apk add --no-cache curl && \
+    mkdir -p /data \
+             /data/node_modules \
+             /usr/src/node-red/lib \
+             /usr/src/node-red/node_modules \
+             /usr/src/node-red/.npm-cache && \
+    chown -R node-red:node-red /data \
+                              /usr/src/node-red/lib \
+                              /usr/src/node-red/.npm-cache \
+                              /usr/src/node-red/node_modules
+
+# Copy package files for dependency installation
+COPY --chown=node-red:node-red package*.json ./
+
+# Install production dependencies only
+USER node-red
+RUN npm ci --prefer-offline --no-audit --omit=dev --no-progress && \
+    # Clean npm cache to reduce image size
+    npm cache clean --force
+
+# Copy application files
+COPY --chown=node-red:node-red flows.json settings.js ./
+COPY --chown=node-red:node-red lib ./lib/
+COPY --chown=node-red:node-red public ./public/
+COPY --chown=node-red:node-red public/logo.png /usr/src/node-red/node_modules/node-red/public/red/images/node-red.png
+
+# Install UniversalBuilder from local directory
+RUN cd /usr/src/node-red/lib/UniversalBuilder && \
+    npm install --no-package-lock && \
+    cd /usr/src/node-red && \
+    npm install ./lib/UniversalBuilder
+
+USER node-red
+CMD ["node-red", "-u", "/data", "-s", "settings.js"] 

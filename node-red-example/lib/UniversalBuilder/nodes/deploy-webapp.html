@@ -1,0 +1,83 @@
+<script type="text/javascript">
+    RED.nodes.registerType('deploy-webapp', {
+        category: 'Morpheus',
+        color: '#a6bbcf',
+        defaults: {
+            name: { value: "" },
+            projectId: { value: "your-project-id", required: true },
+            region: { value: "us-west1", required: true },
+            dockerRegistry: { value: "srt0422", required: true },
+            version: { value: "latest", required: true },
+            openaiApiUrl: { value: "", required: true },
+            modelName: { value: "Default Model", required: true }
+        },
+        inputs: 1,
+        outputs: 1,
+        icon: "white-globe.svg",
+        label: function() {
+            return this.name || "Web App";
+        },
+        paletteLabel: "Web App",
+        oneditprepare: function() {
+            $("#node-input-region").val(this.region || "us-west1");
+            $("#node-input-dockerRegistry").val(this.dockerRegistry || "srt0422");
+            $("#node-input-version").val(this.version || "latest");
+            $("#node-input-modelName").val(this.modelName || "Default Model");
+        }
+    });
+</script>
+
+<script type="text/html" data-template-name="deploy-webapp">
+    <div class="form-row">
+        <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
+        <input type="text" id="node-input-name" placeholder="Name">
+    </div>
+    <div class="form-row">
+        <label for="node-input-projectId"><i class="fa fa-cloud"></i> Project ID</label>
+        <input type="text" id="node-input-projectId" value="your-project-id" placeholder="your-project-id">
+    </div>
+    <div class="form-row">
+        <label for="node-input-region"><i class="fa fa-map-marker"></i> Region</label>
+        <input type="text" id="node-input-region" value="us-west1" placeholder="us-west1">
+    </div>
+    <div class="form-row">
+        <label for="node-input-dockerRegistry"><i class="fa fa-docker"></i> Docker Registry</label>
+        <input type="text" id="node-input-dockerRegistry" value="srt0422" placeholder="srt0422">
+    </div>
+    <div class="form-row">
+        <label for="node-input-version"><i class="fa fa-code-fork"></i> Version</label>
+        <input type="text" id="node-input-version" value="latest" placeholder="latest">
+    </div>
+    <div class="form-row">
+        <label for="node-input-openaiApiUrl"><i class="fa fa-link"></i> OpenAI API URL</label>
+        <input type="text" id="node-input-openaiApiUrl" placeholder="Enter Morpheus App Server URL">
+    </div>
+    <div class="form-row">
+        <label for="node-input-modelName"><i class="fa fa-cube"></i> Model Name</label>
+        <input type="text" id="node-input-modelName" value="Default Model" placeholder="Default Model">
+    </div>
+</script>
+
+<script type="text/html" data-help-name="deploy-webapp">
+    <p>Deploys the web application to Google Cloud Run.</p>
+    <h3>Inputs</h3>
+    <dl class="message-properties">
+        <dt>Project ID <span class="property-type">string</span></dt>
+        <dd>The Google Cloud Project ID where the app will be deployed.</dd>
+        
+        <dt>Region <span class="property-type">string</span></dt>
+        <dd>The GCP region for deployment (default: us-west1).</dd>
+        
+        <dt>Docker Registry <span class="property-type">string</span></dt>
+        <dd>The Docker registry to use (default: srt0422).</dd>
+        
+        <dt>Version <span class="property-type">string</span></dt>
+        <dd>The version tag for the Docker image (default: latest).</dd>
+        
+        <dt>OpenAI API URL <span class="property-type">string</span></dt>
+        <dd>The URL of your Morpheus App Server that will handle OpenAI API requests.</dd>
+        
+        <dt>Model Name <span class="property-type">string</span></dt>
+        <dd>The name of the model to use (default: Default Model).</dd>
+    </dl>
+</script> 
