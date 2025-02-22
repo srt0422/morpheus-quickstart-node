@@ -44,6 +44,8 @@ data/
 .pnp.js
 /node-red-example/UniversalBuilder
 /node-red-example/lib/UniversalBuilder
+/node-red-example/flows_cred.json
+/node-red-example/.flows.json.backup
 
 # testing
 /coverage
