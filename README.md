@@ -229,4 +229,18 @@ Remove all deployed services:
 ./cloud/cleanup.sh
 ```
 
+## Changelog
+
+### Version 1.0.0 (Released: February 7, 2025)
+- Launched a highly engaging and user-friendly chat experience that streamlines communication and boosts customer satisfaction.
+- Delivered an intuitive interface designed to enhance user engagement and drive business growth.
+- Implemented robust security and reliability measures that foster trust and protect valuable customer data.
+- Established a scalable foundation that opens doors for future innovations and continuous improvement.
+
+### Version 1.0.1 (Released: February 21, 2025)
+- Integrated Node-RED automation capabilities to streamline workflows and enhance business agility.
+- Enabled smart process optimizations that reduce operational bottlenecks and increase overall efficiency.
+- Facilitated improved communication between systems, delivering a seamless and valuable customer experience.
+- Paved the way for further enhancements aligned with evolving business priorities.
+
 
