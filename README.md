@@ -232,15 +232,16 @@ Remove all deployed services:
 ## Changelog
 
 ### Version 1.0.0 (Released: February 7, 2025)
-- Launched a highly engaging and user-friendly chat experience that streamlines communication and boosts customer satisfaction.
-- Delivered an intuitive interface designed to enhance user engagement and drive business growth.
+- Launched a highly engaging and user-friendly chat experience that demonstrates the inference capabilities of the Morpheus network.
+- Delivered an intuitive interface designed to enhance developer engagement and drive increases in inference usage.
 - Implemented robust security and reliability measures that foster trust and protect valuable customer data.
-- Established a scalable foundation that opens doors for future innovations and continuous improvement.
+- Established a scalable foundation for Morpheus builders that opens doors for future innovations and continuous improvement.
 
 ### Version 1.0.1 (Released: February 21, 2025)
-- Integrated Node-RED automation capabilities to streamline workflows and enhance business agility.
-- Enabled smart process optimizations that reduce operational bottlenecks and increase overall efficiency.
-- Facilitated improved communication between systems, delivering a seamless and valuable customer experience.
-- Paved the way for further enhancements aligned with evolving business priorities.
+- Added Node-RED integration with pre-built flows for common tasks like batch processing and data transformation
+- Added Google Cloud Run auto-scaling configuration and basic request logging
+- Added new API endpoints for system status updates and notifications
+- Added Node-RED custom node support for extending functionality with new drag-n-drop node-red node and custom deploymentflow (deploys the image https://hub.docker.com/repository/docker/srt0422/openai-morpheus-proxy/tags)
+- Built and pushed the docker image to Docker Hub and Google Container Registry (https://hub.docker.com/repository/docker/srt0422/nodered-example/tags)
 
 
