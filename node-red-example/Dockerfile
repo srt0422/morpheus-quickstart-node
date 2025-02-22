@@ -1,7 +1,7 @@
 # syntax=docker/dockerfile:1.4
 
 # Base stage with shared dependencies
-FROM nodered/node-red:latest-20 as base
+FROM --platform=linux/amd64 nodered/node-red:3.1.3 as base
 WORKDIR /usr/src/node-red
 USER root
 
@@ -76,10 +76,18 @@ USER root
 # Configure npm for better caching
 ENV NPM_CACHE_DIR=/usr/src/node-red/.npm-cache \
     npm_config_cache=/usr/src/node-red/.npm-cache \
-    npm_config_prefer_offline=true
+    npm_config_prefer_offline=true \
+    PATH=${PATH}:/usr/src/node-red/google-cloud-sdk/bin
 
-# Create necessary directories with correct permissions
-RUN apk add --no-cache curl && \
+# Install system dependencies and Google Cloud SDK, then remove unnecessary files to reduce image size
+RUN apk add --no-cache curl python3 && \
+    curl -O https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-cli-458.0.0-linux-x86_64.tar.gz && \
+    tar -xf google-cloud-cli-458.0.0-linux-x86_64.tar.gz && \
+    ./google-cloud-sdk/install.sh --quiet --path-update=true && \
+    ln -s /usr/src/node-red/google-cloud-sdk/bin/gcloud /usr/local/bin/gcloud && \
+    ln -s /usr/src/node-red/google-cloud-sdk/bin/gsutil /usr/local/bin/gsutil && \
+    rm -rf google-cloud-cli-458.0.0-linux-x86_64.tar.gz && \
+    rm -rf /usr/src/node-red/google-cloud-sdk/.git /usr/src/node-red/google-cloud-sdk/doc /usr/src/node-red/google-cloud-sdk/platform && \
     mkdir -p /data \
              /data/node_modules \
              /usr/src/node-red/lib \
@@ -88,7 +96,8 @@ RUN apk add --no-cache curl && \
     chown -R node-red:node-red /data \
                               /usr/src/node-red/lib \
                               /usr/src/node-red/.npm-cache \
-                              /usr/src/node-red/node_modules
+                              /usr/src/node-red/node_modules \
+                              /usr/src/node-red/google-cloud-sdk
 
 # Copy package files for dependency installation
 COPY --chown=node-red:node-red package*.json ./
@@ -96,7 +105,6 @@ COPY --chown=node-red:node-red package*.json ./
 # Install production dependencies only
 USER node-red
 RUN npm ci --prefer-offline --no-audit --omit=dev --no-progress && \
-    # Clean npm cache to reduce image size
     npm cache clean --force
 
 # Copy application files
