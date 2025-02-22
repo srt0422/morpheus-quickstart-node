@@ -13,10 +13,8 @@
                 "view-show-welcome-tours": true
             },
             "tours": {
-                "welcome": "4.0.9"
+                "welcome": "3.1.15"
             }
-        },
-        "menu-menu-item-palette": true,
-        "menu-menu-item-sidebar": true
+        }
     }
 }

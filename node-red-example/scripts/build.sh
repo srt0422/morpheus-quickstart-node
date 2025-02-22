@@ -12,7 +12,8 @@ if [ -f "${SCRIPT_DIR}/cloud/config.sh" ]; then
 fi
 
 # Default configuration
-IMAGE_NAME=${IMAGE_NAME:-srt0422/nodered-example}
+DOCKERHUB_IMAGE_NAME=${DOCKERHUB_IMAGE_NAME:-srt0422/nodered-example}
+GCR_IMAGE_NAME=${GCR_IMAGE_NAME:-gcr.io/test-quickstart-node/nodered-example}
 BUILD_MODE=${BUILD_MODE:-prod}
 # Set platform and environment based on mode
 if [ "$BUILD_MODE" = "prod" ]; then
@@ -20,8 +21,8 @@ if [ "$BUILD_MODE" = "prod" ]; then
 else
     NODE_ENV=development
 fi
-# Use arm64 for both modes since we're on Apple Silicon
-BUILD_PLATFORM=${BUILD_PLATFORM:-linux/arm64}
+# Use the platform specified by the caller, default to the host platform
+BUILD_PLATFORM=${BUILD_PLATFORM:-$(docker info --format '{{.Architecture}}')}
 NO_CACHE=${NO_CACHE:-false}
 
 # Create temporary build context
@@ -29,22 +30,53 @@ BUILD_CONTEXT=$(mktemp -d)
 echo "Creating temporary build context at $BUILD_CONTEXT"
 trap 'rm -rf "$BUILD_CONTEXT"' EXIT
 
-# Copy required files to build context
-echo "Copying files to build context..."
-cp -r "${SCRIPT_DIR}/"* "$BUILD_CONTEXT/"
+# Copy UniversalBuilder from workspace root into lib directory FIRST
+# NOTE: The UniversalBuilder folder at the workspace root (../../UniversalBuilder) is the source of truth.
+# This is the main development folder that contains the latest version of the UniversalBuilder nodes.
+echo "Copying UniversalBuilder from workspace root into lib directory..."
+WORKSPACE_ROOT="$(cd "${SCRIPT_DIR}/../.." && pwd)"
+UNIVERSAL_BUILDER_SOURCE="${WORKSPACE_ROOT}/UniversalBuilder"
 
-# Create UniversalBuilder directory and copy required files
-echo "Copying UniversalBuilder from workspace root..."
-mkdir -p "$BUILD_CONTEXT/UniversalBuilder"
-cp -r "${SCRIPT_DIR}/../../UniversalBuilder/package.json" "$BUILD_CONTEXT/UniversalBuilder/"
-cp -r "${SCRIPT_DIR}/../../UniversalBuilder/package-lock.json" "$BUILD_CONTEXT/UniversalBuilder/"
-cp -r "${SCRIPT_DIR}/../../UniversalBuilder/nodes" "$BUILD_CONTEXT/UniversalBuilder/"
+echo "Looking for UniversalBuilder at: ${UNIVERSAL_BUILDER_SOURCE}"
 
-# Set the final image name based on mode
+if [ ! -d "${UNIVERSAL_BUILDER_SOURCE}" ]; then
+    echo "ERROR: UniversalBuilder directory not found at ${UNIVERSAL_BUILDER_SOURCE}"
+    exit 1
+fi
+
+# Create lib directory and copy only the necessary UniversalBuilder files
+mkdir -p "${BUILD_CONTEXT}/lib/UniversalBuilder"
+# Copy the complete UniversalBuilder package (excluding unnecessary files)
+rsync -av --exclude='node_modules' \
+         --exclude='test' \
+         --exclude='coverage' \
+         --exclude='.nyc_output' \
+         --exclude='data' \
+         --exclude='docker' \
+         --exclude='.nycrc' \
+         --exclude='.npm-cache' \
+         --exclude='project-structure.txt' \
+         "${UNIVERSAL_BUILDER_SOURCE}/" \
+         "${BUILD_CONTEXT}/lib/UniversalBuilder/"
+
+echo "Successfully copied UniversalBuilder package to ${BUILD_CONTEXT}/lib/UniversalBuilder"
+
+# Now copy the rest of the project files, excluding any UniversalBuilder directories and npm cache
+echo "Copying remaining project files to build context..."
+rsync -av --exclude='UniversalBuilder' \
+         --exclude='.npm-cache' \
+         --exclude='node_modules' \
+         "${SCRIPT_DIR}/" "${BUILD_CONTEXT}/"
+
+# Set the final image names based on mode
 if [ "$BUILD_MODE" = "prod" ]; then
-    FINAL_IMAGE_NAME="${IMAGE_NAME}:${IMAGE_TAG:-latest}"
+    FINAL_DOCKERHUB_IMAGE="${DOCKERHUB_IMAGE_NAME}:${IMAGE_TAG:-latest}"
+    FINAL_GCR_IMAGE="${GCR_IMAGE_NAME}:${IMAGE_TAG:-latest}"
+    FINAL_IMAGE_NAME=$FINAL_GCR_IMAGE  # Use GCR image as primary build target for production
 else
-    FINAL_IMAGE_NAME="${IMAGE_NAME}-dev"
+    FINAL_DOCKERHUB_IMAGE="${DOCKERHUB_IMAGE_NAME}-dev"
+    FINAL_GCR_IMAGE="${GCR_IMAGE_NAME}-dev"
+    FINAL_IMAGE_NAME=$FINAL_DOCKERHUB_IMAGE
 fi
 
 echo "Building image: ${FINAL_IMAGE_NAME}"
@@ -59,19 +91,39 @@ if [ "$NO_CACHE" = "true" ]; then
 fi
 
 # Build the image
-docker build ${BUILD_ARGS} --platform ${BUILD_PLATFORM} -t ${FINAL_IMAGE_NAME} ${BUILD_CONTEXT} || {
+docker buildx build ${BUILD_ARGS} --platform linux/amd64 --load -t ${FINAL_IMAGE_NAME} ${BUILD_CONTEXT} || {
     echo "ERROR: Docker build failed"
     exit 1
 }
 
-# Push image if in production mode
+# Push images if in production mode
 if [ "$BUILD_MODE" = "prod" ]; then
-    echo "Pushing image to Docker Hub..."
-    docker push ${FINAL_IMAGE_NAME} || {
-        echo "ERROR: Failed to push Docker image"
-        exit 1
+    # Configure docker for GCR
+    echo "Configuring docker for GCR..."
+    gcloud auth configure-docker gcr.io --quiet
+
+    # Push to GCR first
+    echo "Pushing image to Google Container Registry..."
+    docker push ${FINAL_GCR_IMAGE} || {
+        echo "WARNING: Failed to push Docker image to GCR"
     }
+
+    # Tag and push to Docker Hub as backup
+    echo "Tagging for Docker Hub..."
+    docker tag ${FINAL_IMAGE_NAME} ${FINAL_DOCKERHUB_IMAGE}
+    
+    echo "Pushing image to Docker Hub..."
+    docker push ${FINAL_DOCKERHUB_IMAGE} || {
+        echo "WARNING: Failed to push Docker image to Docker Hub"
+    }
+
+    # If both pushes failed, exit with error
+    if ! docker manifest inspect ${FINAL_GCR_IMAGE} >/dev/null 2>&1 && ! docker manifest inspect ${FINAL_DOCKERHUB_IMAGE} >/dev/null 2>&1; then
+        echo "ERROR: Failed to push Docker image to both registries"
+        exit 1
+    fi
 fi
 
 echo "Build completed successfully!"
-echo "Image: ${FINAL_IMAGE_NAME}" 
+echo "Docker Hub Image: ${FINAL_DOCKERHUB_IMAGE}"
+echo "GCR Image: ${FINAL_GCR_IMAGE}" 

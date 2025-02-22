@@ -124,7 +124,10 @@ cd morpheus-quickstart-node
 cp cloud/config.example.sh cloud/config.sh
 ```
 
-2. Edit `cloud/config.sh` with your settings:
+2. Edit `cloud/config.sh` with your settings:   
+  - Add your GCP project id (PROJECT_ID)
+  - Add your wallet private key (WALLET_PRIVATE_KEY)
+  - Add your password for the consumer node (CONSUMER_PASSWORD)
 ```bash
 export PROJECT_ID="your-project-id"
 export REGION="us-central1"
@@ -135,6 +138,11 @@ export DOCKER_REGISTRY="srt0422"  # Using Docker Hub registry instead of GCR
 export NFA_PROXY_PORT="8080"
 export CONSUMER_PORT="3333"
 export WEBAPP_PORT="3000"
+
+# Authentication Configuration
+export CONSUMER_USERNAME="admin"  # Username for proxy and consumer node authentication
+export CONSUMER_PASSWORD="your-secure-password"  # Password for proxy and consumer node authentication
+
 
 # Wallet Configuration
 export WALLET_PRIVATE_KEY="your-wallet-private-key"
@@ -220,5 +228,20 @@ Remove all deployed services:
 ```bash
 ./cloud/cleanup.sh
 ```
+
+## Changelog
+
+### Version 1.0.0 (Released: February 7, 2025)
+- Launched a highly engaging and user-friendly chat experience that demonstrates the inference capabilities of the Morpheus network.
+- Delivered an intuitive interface designed to enhance developer engagement and drive increases in inference usage.
+- Implemented robust security and reliability measures that foster trust and protect valuable customer data.
+- Established a scalable foundation for Morpheus builders that opens doors for future innovations and continuous improvement.
+
+### Version 1.0.1 (Released: February 21, 2025)
+- Added Node-RED integration with pre-built flows for common tasks like batch processing and data transformation
+- Added Google Cloud Run auto-scaling configuration and basic request logging
+- Added new API endpoints for system status updates and notifications
+- Added Node-RED custom node support for extending functionality with new drag-n-drop node-red node and custom deploymentflow (deploys the image https://hub.docker.com/repository/docker/srt0422/openai-morpheus-proxy/tags)
+- Built and pushed the docker image to Docker Hub and Google Container Registry (https://hub.docker.com/repository/docker/srt0422/nodered-example/tags)
 
 
