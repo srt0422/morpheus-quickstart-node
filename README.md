@@ -3,12 +3,15 @@ APP Router Readme 0.0.1
 # Sample Morpheus Chat App Deployment Guide
 
 ## Overview
+NOTE: For builder's kit instructions, please see the builder's kit README file at [builder's kit README](./node-red-example/README.md).
+
 This is a sample app using Morpheus inference in a Next.js app hosted on Google Cloud.  The app consists of two parts: 
 1. App proxy router that exists in a Docker container.
 2. A front end that the user uses to send prompts and see responses from the App router
 
 ## Table of Contents
 - [Overview](#overview)
+- [Builder's Kit Instructions](#builders-kit-instructions)
 - [Guide](#guide)
 - [Getting Started](#getting-started)
   - [Prerequisites](#prerequisites)
@@ -30,7 +33,11 @@ You will need to set up the app router in order to open and close inference sess
 
 For this particular demo we have installed the app router on a Google Cloud Run service to host Docker containers.
 
+## Builder's Kit Instructions
+- For step-by-step instructions for running the Builders' Kit project locally (requires Docker), please refer to the Builders' Kit Local Guide in the node-red-example directory: [Builders' Kit Local Guide](./node-red-example/README.md).
+
 ## Guide
+Follow the steps below to deploy the App Router and configure the system for Morpheus inference.
 
 1. Collect at least 10 MOR that will be used to pay for inference on the Morpheus network.  The address's secret key used for this demo will be potentially exposed so use a new address that you don't use for anything else besides this demo.
 
