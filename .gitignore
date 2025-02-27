@@ -47,6 +47,24 @@ data/
 /node-red-example/flows_cred.json
 /node-red-example/.flows.json.backup
 
+# Node-RED specific files
+node-red-example/.config.*
+node-red-example/.sessions/
+node-red-example/.npm-cache/
+node-red-example/settings.local.js
+node-red-example/*_credentialSecret*
+node-red-example/*.backup
+node-red-example/.flows*.json.backup
+node-red-example/.flows_cred*.json
+node-red-example/flows_cred*.json
+node-red-example/.last_build*
+node-red-example/.node-red/
+node-red-example/_cloudflowsbackup/
+node-red-example/_backup/
+node-red-example/.flows.json.backup
+node-red-example/tmp/
+node-red-example/.flows*.bak
+
 # testing
 /coverage
 
