@@ -52,27 +52,25 @@ class MockNode {
 class MockNodeRegistry {
     constructor() {
         this.nodes = new Map();
-        this.nodeDefinitions = new Map();
-        this.nodeConstructors = new Map();
+        this.nodeTypes = new Map();
     }
 
-    registerType(type, constructor, definition) {
-        this.nodeDefinitions.set(type, {
-            constructor: constructor.name,
+    registerType(type, constructorOrFactory, definition = {}) {
+        this.nodeTypes.set(type, {
+            constructor: constructorOrFactory.name,
+            factory: constructorOrFactory,
             definition: {
                 ...definition,
                 name: type
             }
         });
-        this.nodeConstructors.set(constructor.name, constructor);
     }
 
     getType(type) {
-        return this.nodeDefinitions.get(type)?.definition || null;
+        return this.nodeTypes.get(type) || null;
     }
 
     createNode(node, config) {
-        node._registry = this;
         this.nodes.set(config.id, node);
     }
 
@@ -82,8 +80,7 @@ class MockNodeRegistry {
 
     clear() {
         this.nodes.clear();
-        this.nodeDefinitions.clear();
-        this.nodeConstructors.clear();
+        this.nodeTypes.clear();
     }
 }
 

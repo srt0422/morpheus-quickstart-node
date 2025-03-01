@@ -23,8 +23,8 @@ if ! docker volume inspect ${VOLUME_NAME} >/dev/null 2>&1; then
     docker volume create ${VOLUME_NAME}
 fi
 
-# Build the image
-BUILD_MODE=prod NODE_ENV=production "${SCRIPT_DIR}/scripts/build.sh"
+# Build the image without pushing it to registries
+BUILD_MODE=prod NODE_ENV=production SKIP_PUSH=true "${SCRIPT_DIR}/scripts/build.sh"
 IMAGE_NAME_PROD=${IMAGE_NAME:-srt0422/nodered-example}
 
 echo "Starting production container..."

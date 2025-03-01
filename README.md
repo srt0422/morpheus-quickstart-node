@@ -251,4 +251,16 @@ Remove all deployed services:
 - Added Node-RED custom node support for extending functionality with new drag-n-drop node-red node and custom deploymentflow (deploys the image https://hub.docker.com/repository/docker/srt0422/openai-morpheus-proxy/tags)
 - Built and pushed the docker image to Docker Hub and Google Container Registry (https://hub.docker.com/repository/docker/srt0422/nodered-example/tags)
 
+### Version 1.0.2 (Released: March 1, 2025)
+- This update provides an Open AI api gateway to the morpheus network
+- Created a custom node-red plugin for deploying the morpheus consumer node
+- Added reasonable default configuration values to minimize setup requirements for builders
+- Created a sample google cloud run deployment flow "Morpheus Deployment Flow" to replace "Deploy Proxy Flow"
+- The consumer-node plugin now offers significant value to builders through:
+  - Streamlined deployment with pre-configured settings
+  - Reduced implementation time through sensible defaults and improved UI
+  - Enhanced security through proper authentication configuration
+  - Simplified integration with the proxy component via automated data flow
+  - Accelerated time-to-market for Morpheus-powered applications
+
 

@@ -1,47 +1,70 @@
-const { MockNode } = require('./mock-red');
-
 module.exports = function(RED) {
-    class DeployProxyNode extends MockNode {
-        constructor(config) {
-            super(config);
-            
-            // Copy configuration
-            this.name = config.name || '';
-            this.config = config.config;
-            
-            // Set valid state based on required parameters
-            this.valid = !!this.config;
+    function DeployProxyNode(config) {
+        if (!(this instanceof DeployProxyNode)) {
+            return new DeployProxyNode(config);
+        }
+        
+        // Call the base constructor if RED.nodes.createNode exists
+        if (RED && RED.nodes && typeof RED.nodes.createNode === 'function') {
+            RED.nodes.createNode(this, config);
+        } else {
+            // For testing, create a minimal node
+            this.id = config.id;
+            this.type = config.type;
+            this._events = {};
+            this.status = () => {};
+            this.error = (err) => { console.error(err); };
+            this.warn = (msg) => { console.warn(msg); };
+            this.debug = (msg) => { console.debug(msg); };
+            this.send = () => {};
+        }
 
-            const node = this;
+        // Copy configuration
+        this.name = config.name || '';
+        this.config = config.config;
+        
+        // Set valid state based on required parameters
+        this.valid = !!this.config;
 
-            this.on('input', async function(msg) {
-                try {
-                    // Validate required configuration
-                    if (!node.config) {
-                        msg.payload = {
-                            status: 'error',
-                            error: 'Missing required configuration'
-                        };
-                        node.send(msg);
-                        return;
-                    }
+        const node = this;
 
-                    // Mock successful deployment
-                    msg.payload = {
-                        status: 'success',
-                        proxyUrl: 'http://localhost:8080'
-                    };
-                    
-                    node.send(msg);
-                } catch (error) {
+        this.on = function(event, callback) {
+            this._events[event] = callback;
+        };
+
+        this.receive = function(msg) {
+            if (this._events.input) {
+                this._events.input(msg);
+            }
+        };
+
+        this.on('input', async function(msg) {
+            try {
+                // Validate required configuration
+                if (!node.config) {
                     msg.payload = {
                         status: 'error',
-                        error: error.message
+                        error: 'Missing required configuration'
                     };
                     node.send(msg);
+                    return;
                 }
-            });
-        }
+
+                // Mock successful deployment
+                msg.payload = {
+                    status: 'success',
+                    proxyUrl: 'http://localhost:8080'
+                };
+                
+                node.send(msg);
+            } catch (error) {
+                msg.payload = {
+                    status: 'error',
+                    error: error.message
+                };
+                node.send(msg);
+            }
+        });
     }
 
     // Register node type

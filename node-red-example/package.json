@@ -4,8 +4,12 @@
   "description": "Example Node-RED flow for NFA proxy deployment",
   "scripts": {
     "start": "./scripts/start.sh",
-    "run": "node-red -u ./data -s settings.js",
-    "dev": "./scripts/dev.sh --run",
+    "reload-builder": "./scripts/reload-builder.sh",
+    "reload-and-reinstall": "./scripts/reload-and-reinstall.sh",
+    "run": "npm run reload-builder && node-red -u ./data -s settings.js",
+    "run:fresh": "npm run reload-and-reinstall && node-red -u ./data -s settings.js",
+    "dev": "npm run reload-builder && ./scripts/dev.sh --run",
+    "dev:fresh": "npm run reload-and-reinstall && ./scripts/dev.sh --run",
     "build": "./scripts/dev.sh",
     "deploy": "npx node-red flows.json -s ./settings.js",
     "pretest": "chmod +x ./scripts/setup-test-env.sh && ./scripts/setup-test-env.sh",
@@ -18,7 +22,6 @@
     "@node-red/nodes": "^4.0.8",
     "dotenv": "^16.3.1",
     "node-red": "^3.1.8",
-    "node-red-contrib-universal-deploy": "file:lib/UniversalBuilder",
     "semver": "^7.6.3"
   },
   "devDependencies": {
