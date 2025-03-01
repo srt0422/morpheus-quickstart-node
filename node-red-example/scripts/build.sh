@@ -15,6 +15,7 @@ fi
 DOCKERHUB_IMAGE_NAME=${DOCKERHUB_IMAGE_NAME:-srt0422/nodered-example}
 GCR_IMAGE_NAME=${GCR_IMAGE_NAME:-gcr.io/test-quickstart-node/nodered-example}
 BUILD_MODE=${BUILD_MODE:-prod}
+SKIP_PUSH=${SKIP_PUSH:-false}
 # Set platform and environment based on mode
 if [ "$BUILD_MODE" = "prod" ]; then
     NODE_ENV=production
@@ -96,8 +97,12 @@ docker buildx build ${BUILD_ARGS} --platform linux/amd64 --load -t ${FINAL_IMAGE
     exit 1
 }
 
-# Push images if in production mode
-if [ "$BUILD_MODE" = "prod" ]; then
+# Also tag with the Docker Hub name for local use
+echo "Tagging for Docker Hub..."
+docker tag ${FINAL_IMAGE_NAME} ${FINAL_DOCKERHUB_IMAGE}
+
+# Push images if in production mode and SKIP_PUSH is not set to true
+if [ "$BUILD_MODE" = "prod" ] && [ "$SKIP_PUSH" != "true" ]; then
     # Configure docker for GCR
     echo "Configuring docker for GCR..."
     gcloud auth configure-docker gcr.io --quiet
@@ -107,10 +112,6 @@ if [ "$BUILD_MODE" = "prod" ]; then
     docker push ${FINAL_GCR_IMAGE} || {
         echo "WARNING: Failed to push Docker image to GCR"
     }
-
-    # Tag and push to Docker Hub as backup
-    echo "Tagging for Docker Hub..."
-    docker tag ${FINAL_IMAGE_NAME} ${FINAL_DOCKERHUB_IMAGE}
     
     echo "Pushing image to Docker Hub..."
     docker push ${FINAL_DOCKERHUB_IMAGE} || {
@@ -122,6 +123,8 @@ if [ "$BUILD_MODE" = "prod" ]; then
         echo "ERROR: Failed to push Docker image to both registries"
         exit 1
     fi
+elif [ "$SKIP_PUSH" = "true" ]; then
+    echo "Skipping image push to registries (SKIP_PUSH=true)"
 fi
 
 echo "Build completed successfully!"
