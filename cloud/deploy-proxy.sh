@@ -10,6 +10,10 @@ ensure_gcp_context
 IMAGE_TAG="${NFA_PROXY_VERSION}"
 IMAGE_NAME="${DOCKER_REGISTRY}/openai-morpheus-proxy:${IMAGE_TAG}"
 
+# Pull the image from Docker Hub
+echo "Pulling image ${DOCKER_REGISTRY}/openai-morpheus-proxy:${IMAGE_TAG}..."
+docker pull "$IMAGE_NAME"
+
 # Deploy NFA Proxy
 echo "Deploying NFA Proxy version: ${IMAGE_NAME}..."
 gcloud run deploy nfa-proxy \
