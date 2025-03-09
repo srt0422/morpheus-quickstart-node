@@ -3,11 +3,15 @@
     "watch": [
         "flows.json",
         "settings.js",
-        "lib/**/*",
-        "UniversalBuilder/**/*"
+        "lib/**/*"
     ],
     "ignore": [
-        "node_modules/**/*"
+        "node_modules/**/*",
+        "**/node_modules/**/*",
+        "**/dist/**/*",
+        "**/coverage/**/*",
+        "**/.nyc_output/**/*",
+        "**/.git/**/*"
     ],
     "exec": "npx node-red -u ./ -s ./settings.js"
 } 

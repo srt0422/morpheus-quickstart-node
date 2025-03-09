@@ -424,190 +424,14 @@
                 "user": false,
                 "module": "node-red",
                 "file": "/Users/scottterry/Workspace/AgentGarage/ExampleChatApp/node-red-example/node_modules/node-red/node_modules/@node-red/nodes/core/storage/23-watch.js"
-            },
-            "deploy-agent": {
-                "name": "deploy-agent",
-                "types": [
-                    "agent",
-                    "deploy-agent"
-                ],
-                "enabled": true,
-                "local": false,
-                "user": false,
-                "module": "node-red",
-                "file": "/Users/scottterry/Workspace/AgentGarage/ExampleChatApp/node-red-example/UniversalBuilder/nodes/deploy-agent.js"
-            },
-            "deploy-app": {
-                "name": "deploy-app",
-                "types": [
-                    "app",
-                    "deploy-app"
-                ],
-                "enabled": true,
-                "local": false,
-                "user": false,
-                "module": "node-red",
-                "file": "/Users/scottterry/Workspace/AgentGarage/ExampleChatApp/node-red-example/UniversalBuilder/nodes/deploy-app.js"
-            },
-            "deploy-cloud-akash": {
-                "name": "deploy-cloud-akash",
-                "types": [
-                    "cloud-akash",
-                    "deploy-cloud-akash"
-                ],
-                "enabled": true,
-                "local": false,
-                "user": false,
-                "module": "node-red",
-                "file": "/Users/scottterry/Workspace/AgentGarage/ExampleChatApp/node-red-example/UniversalBuilder/nodes/deploy-cloud-akash.js"
-            },
-            "deploy-cloud-aws": {
-                "name": "deploy-cloud-aws",
-                "types": [
-                    "cloud-aws",
-                    "deploy-cloud-aws"
-                ],
-                "enabled": true,
-                "local": false,
-                "user": false,
-                "module": "node-red",
-                "file": "/Users/scottterry/Workspace/AgentGarage/ExampleChatApp/node-red-example/UniversalBuilder/nodes/deploy-cloud-aws.js"
-            },
-            "deploy-cloud-azure": {
-                "name": "deploy-cloud-azure",
-                "types": [
-                    "cloud-azure",
-                    "deploy-cloud-azure"
-                ],
-                "enabled": true,
-                "local": false,
-                "user": false,
-                "module": "node-red",
-                "file": "/Users/scottterry/Workspace/AgentGarage/ExampleChatApp/node-red-example/UniversalBuilder/nodes/deploy-cloud-azure.js"
-            },
-            "deploy-cloud-gcp": {
-                "name": "deploy-cloud-gcp",
-                "types": [
-                    "cloud-gcp",
-                    "deploy-cloud-gcp"
-                ],
-                "enabled": true,
-                "local": false,
-                "user": false,
-                "module": "node-red",
-                "file": "/Users/scottterry/Workspace/AgentGarage/ExampleChatApp/node-red-example/UniversalBuilder/nodes/deploy-cloud-gcp.js"
-            },
-            "deploy-cloud-local": {
-                "name": "deploy-cloud-local",
-                "types": [
-                    "cloud-local",
-                    "deploy-cloud-local"
-                ],
-                "enabled": true,
-                "local": false,
-                "user": false,
-                "module": "node-red",
-                "file": "/Users/scottterry/Workspace/AgentGarage/ExampleChatApp/node-red-example/UniversalBuilder/nodes/deploy-cloud-local.js"
-            },
-            "deploy-config": {
-                "name": "deploy-config",
-                "types": [
-                    "config"
-                ],
-                "enabled": true,
-                "local": false,
-                "user": false,
-                "module": "node-red",
-                "file": "/Users/scottterry/Workspace/AgentGarage/ExampleChatApp/node-red-example/UniversalBuilder/nodes/deploy-config.js"
-            },
-            "deploy-consumer": {
-                "name": "deploy-consumer",
-                "types": [
-                    "deploy-consumer"
-                ],
-                "enabled": true,
-                "local": false,
-                "user": false,
-                "module": "node-red",
-                "file": "/Users/scottterry/Workspace/AgentGarage/ExampleChatApp/node-red-example/UniversalBuilder/nodes/deploy-consumer.js"
-            },
-            "deploy-mor20": {
-                "name": "deploy-mor20",
-                "types": [
-                    "mor20",
-                    "deploy-mor20"
-                ],
-                "enabled": true,
-                "local": false,
-                "user": false,
-                "module": "node-red",
-                "file": "/Users/scottterry/Workspace/AgentGarage/ExampleChatApp/node-red-example/UniversalBuilder/nodes/deploy-mor20.js"
-            },
-            "deploy-provider": {
-                "name": "deploy-provider",
-                "types": [
-                    "provider",
-                    "deploy-provider"
-                ],
-                "enabled": true,
-                "local": false,
-                "user": false,
-                "module": "node-red",
-                "file": "/Users/scottterry/Workspace/AgentGarage/ExampleChatApp/node-red-example/UniversalBuilder/nodes/deploy-provider.js"
-            },
-            "deploy-proxy": {
-                "name": "deploy-proxy",
-                "types": [
-                    "deploy-proxy"
-                ],
-                "enabled": true,
-                "local": false,
-                "user": false,
-                "module": "node-red",
-                "file": "/Users/scottterry/Workspace/AgentGarage/ExampleChatApp/node-red-example/UniversalBuilder/nodes/deploy-proxy.js"
-            },
-            "deploy-subnet": {
-                "name": "deploy-subnet",
-                "types": [
-                    "subnet",
-                    "deploy-subnet"
-                ],
-                "enabled": true,
-                "local": false,
-                "user": false,
-                "module": "node-red",
-                "file": "/Users/scottterry/Workspace/AgentGarage/ExampleChatApp/node-red-example/UniversalBuilder/nodes/deploy-subnet.js"
-            },
-            "deploy-wallet": {
-                "name": "deploy-wallet",
-                "types": [
-                    "wallet",
-                    "deploy-wallet"
-                ],
-                "enabled": true,
-                "local": false,
-                "user": false,
-                "module": "node-red",
-                "file": "/Users/scottterry/Workspace/AgentGarage/ExampleChatApp/node-red-example/UniversalBuilder/nodes/deploy-wallet.js"
-            },
-            "deploy-webapp": {
-                "name": "deploy-webapp",
-                "types": [
-                    "deploy-webapp"
-                ],
-                "enabled": true,
-                "local": false,
-                "user": false,
-                "module": "node-red",
-                "file": "/Users/scottterry/Workspace/AgentGarage/ExampleChatApp/node-red-example/UniversalBuilder/nodes/deploy-webapp.js"
             }
         }
     },
     "node-red-contrib-universal-deploy": {
         "name": "node-red-contrib-universal-deploy",
         "version": "1.0.2",
-        "local": true,
-        "user": true,
+        "local": false,
+        "user": false,
         "nodes": {
             "deploy-proxy": {
                 "name": "deploy-proxy",
@@ -615,7 +439,7 @@
                     "deploy-proxy"
                 ],
                 "enabled": true,
-                "local": true,
+                "local": false,
                 "user": false,
                 "module": "node-red-contrib-universal-deploy",
                 "file": "/Users/scottterry/Workspace/AgentGarage/ExampleChatApp/node-red-example/node_modules/node-red-contrib-universal-deploy/nodes/deploy-proxy.js"
@@ -626,7 +450,7 @@
                     "deploy-webapp"
                 ],
                 "enabled": true,
-                "local": true,
+                "local": false,
                 "user": false,
                 "module": "node-red-contrib-universal-deploy",
                 "file": "/Users/scottterry/Workspace/AgentGarage/ExampleChatApp/node-red-example/node_modules/node-red-contrib-universal-deploy/nodes/deploy-webapp.js"
@@ -634,10 +458,11 @@
             "deploy-cloud-azure": {
                 "name": "deploy-cloud-azure",
                 "types": [
-                    "cloud-azure"
+                    "cloud-azure",
+                    "deploy-cloud-azure"
                 ],
                 "enabled": true,
-                "local": true,
+                "local": false,
                 "user": false,
                 "module": "node-red-contrib-universal-deploy",
                 "file": "/Users/scottterry/Workspace/AgentGarage/ExampleChatApp/node-red-example/node_modules/node-red-contrib-universal-deploy/nodes/deploy-cloud-azure.js"
@@ -648,7 +473,7 @@
                     "deploy-consumer"
                 ],
                 "enabled": true,
-                "local": true,
+                "local": false,
                 "user": false,
                 "module": "node-red-contrib-universal-deploy",
                 "file": "/Users/scottterry/Workspace/AgentGarage/ExampleChatApp/node-red-example/node_modules/node-red-contrib-universal-deploy/nodes/deploy-consumer.js"
@@ -656,10 +481,11 @@
             "deploy-mor20": {
                 "name": "deploy-mor20",
                 "types": [
-                    "mor20"
+                    "mor20",
+                    "deploy-mor20"
                 ],
                 "enabled": true,
-                "local": true,
+                "local": false,
                 "user": false,
                 "module": "node-red-contrib-universal-deploy",
                 "file": "/Users/scottterry/Workspace/AgentGarage/ExampleChatApp/node-red-example/node_modules/node-red-contrib-universal-deploy/nodes/deploy-mor20.js"
@@ -667,10 +493,11 @@
             "deploy-app": {
                 "name": "deploy-app",
                 "types": [
-                    "app"
+                    "app",
+                    "deploy-app"
                 ],
                 "enabled": true,
-                "local": true,
+                "local": false,
                 "user": false,
                 "module": "node-red-contrib-universal-deploy",
                 "file": "/Users/scottterry/Workspace/AgentGarage/ExampleChatApp/node-red-example/node_modules/node-red-contrib-universal-deploy/nodes/deploy-app.js"
@@ -678,10 +505,11 @@
             "deploy-cloud-local": {
                 "name": "deploy-cloud-local",
                 "types": [
-                    "cloud-local"
+                    "cloud-local",
+                    "deploy-cloud-local"
                 ],
                 "enabled": true,
-                "local": true,
+                "local": false,
                 "user": false,
                 "module": "node-red-contrib-universal-deploy",
                 "file": "/Users/scottterry/Workspace/AgentGarage/ExampleChatApp/node-red-example/node_modules/node-red-contrib-universal-deploy/nodes/deploy-cloud-local.js"
@@ -689,10 +517,11 @@
             "deploy-agent": {
                 "name": "deploy-agent",
                 "types": [
-                    "agent"
+                    "agent",
+                    "deploy-agent"
                 ],
                 "enabled": true,
-                "local": true,
+                "local": false,
                 "user": false,
                 "module": "node-red-contrib-universal-deploy",
                 "file": "/Users/scottterry/Workspace/AgentGarage/ExampleChatApp/node-red-example/node_modules/node-red-contrib-universal-deploy/nodes/deploy-agent.js"
@@ -700,10 +529,11 @@
             "deploy-provider": {
                 "name": "deploy-provider",
                 "types": [
-                    "provider"
+                    "provider",
+                    "deploy-provider"
                 ],
                 "enabled": true,
-                "local": true,
+                "local": false,
                 "user": false,
                 "module": "node-red-contrib-universal-deploy",
                 "file": "/Users/scottterry/Workspace/AgentGarage/ExampleChatApp/node-red-example/node_modules/node-red-contrib-universal-deploy/nodes/deploy-provider.js"
@@ -711,10 +541,11 @@
             "deploy-cloud-akash": {
                 "name": "deploy-cloud-akash",
                 "types": [
-                    "cloud-akash"
+                    "cloud-akash",
+                    "deploy-cloud-akash"
                 ],
                 "enabled": true,
-                "local": true,
+                "local": false,
                 "user": false,
                 "module": "node-red-contrib-universal-deploy",
                 "file": "/Users/scottterry/Workspace/AgentGarage/ExampleChatApp/node-red-example/node_modules/node-red-contrib-universal-deploy/nodes/deploy-cloud-akash.js"
@@ -722,10 +553,11 @@
             "deploy-cloud-aws": {
                 "name": "deploy-cloud-aws",
                 "types": [
-                    "cloud-aws"
+                    "cloud-aws",
+                    "deploy-cloud-aws"
                 ],
                 "enabled": true,
-                "local": true,
+                "local": false,
                 "user": false,
                 "module": "node-red-contrib-universal-deploy",
                 "file": "/Users/scottterry/Workspace/AgentGarage/ExampleChatApp/node-red-example/node_modules/node-red-contrib-universal-deploy/nodes/deploy-cloud-aws.js"
@@ -733,10 +565,11 @@
             "deploy-cloud-gcp": {
                 "name": "deploy-cloud-gcp",
                 "types": [
-                    "cloud-gcp"
+                    "cloud-gcp",
+                    "deploy-cloud-gcp"
                 ],
                 "enabled": true,
-                "local": true,
+                "local": false,
                 "user": false,
                 "module": "node-red-contrib-universal-deploy",
                 "file": "/Users/scottterry/Workspace/AgentGarage/ExampleChatApp/node-red-example/node_modules/node-red-contrib-universal-deploy/nodes/deploy-cloud-gcp.js"
@@ -744,10 +577,11 @@
             "deploy-subnet": {
                 "name": "deploy-subnet",
                 "types": [
-                    "subnet"
+                    "subnet",
+                    "deploy-subnet"
                 ],
                 "enabled": true,
-                "local": true,
+                "local": false,
                 "user": false,
                 "module": "node-red-contrib-universal-deploy",
                 "file": "/Users/scottterry/Workspace/AgentGarage/ExampleChatApp/node-red-example/node_modules/node-red-contrib-universal-deploy/nodes/deploy-subnet.js"
@@ -755,10 +589,11 @@
             "deploy-config": {
                 "name": "deploy-config",
                 "types": [
-                    "config"
+                    "config",
+                    "deploy-config"
                 ],
                 "enabled": true,
-                "local": true,
+                "local": false,
                 "user": false,
                 "module": "node-red-contrib-universal-deploy",
                 "file": "/Users/scottterry/Workspace/AgentGarage/ExampleChatApp/node-red-example/node_modules/node-red-contrib-universal-deploy/nodes/deploy-config.js"
@@ -766,10 +601,11 @@
             "deploy-wallet": {
                 "name": "deploy-wallet",
                 "types": [
-                    "wallet"
+                    "wallet",
+                    "deploy-wallet"
                 ],
                 "enabled": true,
-                "local": true,
+                "local": false,
                 "user": false,
                 "module": "node-red-contrib-universal-deploy",
                 "file": "/Users/scottterry/Workspace/AgentGarage/ExampleChatApp/node-red-example/node_modules/node-red-contrib-universal-deploy/nodes/deploy-wallet.js"

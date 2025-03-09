@@ -1,37 +1,75 @@
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
+# Node.js dependencies
+node_modules/
+
+# Build output directories
+build/
+dist/
+out/
+.next/
+
+# Environment and secret files
+.env
+.env.production
+.env.development
+!/.env.example
+
+# Log files
+*.log
+**/*.log
+npm-debug.log*
+yarn-debug.log*
+pnpm-debug.log*
+
+# OS generated files
+.DS_Store
+
+# Editor directories and files
+.vscode/
+.idea/
+
+# Workspace files, backups, and caches
+ExampleChatApp.code-workspace
+*.backup
+.npm-cache/
+
+# Runtime or local data (if not version controlled)
+data/
+
 # dependencies
 /node_modules
 **/node_modules
 /.pnp
 .pnp.js
 /node-red-example/UniversalBuilder
+/node-red-example/lib/UniversalBuilder
+/node-red-example/flows_cred.json
+/node-red-example/.flows.json.backup
+
+# Node-RED specific files
+node-red-example/.config.*
+node-red-example/.sessions/
+node-red-example/.npm-cache/
+node-red-example/settings.local.js
+node-red-example/*_credentialSecret*
+node-red-example/*.backup
+node-red-example/.flows*.json.backup
+node-red-example/.flows_cred*.json
+node-red-example/flows_cred*.json
+node-red-example/.last_build*
+node-red-example/.node-red/
+node-red-example/_cloudflowsbackup/
+node-red-example/_backup/
+node-red-example/.flows.json.backup
+node-red-example/tmp/
+node-red-example/.flows*.bak
 
 # testing
 /coverage
 
-# next.js
-/.next/
-/out/
-
-# production
-/build
-
 # misc
-.DS_Store
 .code-workspace
-
-# debug
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-
-# env files
-.env
-.env.local
-.env.development.local
-.env.test.local
-.env.production.local
 
 # config
 config.sh

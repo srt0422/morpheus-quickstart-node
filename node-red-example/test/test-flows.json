@@ -1,0 +1,48 @@
+{
+    "nodes": [
+        {
+            "id": "test-flow",
+            "type": "tab",
+            "label": "Test Flow",
+            "disabled": false,
+            "info": ""
+        },
+        {
+            "id": "test-inject",
+            "type": "inject",
+            "z": "test-flow",
+            "name": "Test Trigger",
+            "props": [
+                {
+                    "p": "payload"
+                }
+            ],
+            "repeat": "",
+            "crontab": "",
+            "once": false,
+            "onceDelay": 0.1,
+            "topic": "",
+            "payload": "",
+            "payloadType": "date",
+            "x": 150,
+            "y": 100,
+            "wires": [["test-debug"]]
+        },
+        {
+            "id": "test-debug",
+            "type": "debug",
+            "z": "test-flow",
+            "name": "Test Output",
+            "active": true,
+            "tosidebar": true,
+            "console": false,
+            "tostatus": false,
+            "complete": "false",
+            "statusVal": "",
+            "statusType": "auto",
+            "x": 340,
+            "y": 100,
+            "wires": []
+        }
+    ]
+} 

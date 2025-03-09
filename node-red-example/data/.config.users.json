@@ -15,8 +15,6 @@
             "tours": {
                 "welcome": "3.1.15"
             }
-        },
-        "menu-menu-item-palette": true,
-        "menu-menu-item-sidebar": true
+        }
     }
 }
