@@ -34,12 +34,49 @@ export NVM_DIR="$HOME/.nvm"
 
 # Get the highest compatible LTS version based on the engine requirement
 echo "Finding highest compatible LTS version for requirement: $NODE_VERSION"
-COMPATIBLE_VERSION=$(nvm ls-remote --lts | grep -E "v[0-9]+\.[0-9]+\.[0-9]+" | while read -r line; do
-    version=$(echo "$line" | grep -Eo "v[0-9]+\.[0-9]+\.[0-9]+" | tr -d 'v')
-    if node -e "process.exit(require('semver').satisfies('$version', '$NODE_VERSION') ? 0 : 1)" 2>/dev/null; then
-        echo "$version"
+
+# Extract minimum version number using simple string operations
+MIN_VERSION=""
+if [[ "$NODE_VERSION" == ">="* ]]; then
+    # Extract version after >=
+    MIN_VERSION="${NODE_VERSION#>=}"
+    # Extract just the major version (e.g. 16 from >=16.0.0)
+    MIN_MAJOR_VERSION=$(echo "$MIN_VERSION" | cut -d. -f1)
+    echo "Detected minimum major version: $MIN_MAJOR_VERSION"
+else
+    echo "Warning: Complex version requirement detected, using latest LTS version"
+fi
+
+# Find the highest compatible LTS version using basic shell commands
+if [[ -n "$MIN_MAJOR_VERSION" && "$MIN_MAJOR_VERSION" =~ ^[0-9]+$ ]]; then
+    # Filter LTS versions by major version number
+    COMPATIBLE_VERSION=$(nvm ls-remote --lts | grep -E "v$MIN_MAJOR_VERSION\." | 
+                         grep -v "rc\|beta\|alpha" | 
+                         tail -1 | 
+                         grep -Eo "v[0-9]+\.[0-9]+\.[0-9]+" | 
+                         tr -d 'v')
+    
+    # If no version with exact major version match, get the latest LTS
+    if [ -z "$COMPATIBLE_VERSION" ]; then
+        echo "No LTS with major version $MIN_MAJOR_VERSION found, trying higher versions..."
+        COMPATIBLE_VERSION=$(nvm ls-remote --lts | grep -E "v[0-9]+\.[0-9]+\.[0-9]+" | 
+                            grep -v "rc\|beta\|alpha" | 
+                            awk -v min="$MIN_MAJOR_VERSION" '{
+                              if (match($1, /v([0-9]+)\./, a) && a[1] >= min)
+                                print $0
+                            }' | 
+                            tail -1 | 
+                            grep -Eo "v[0-9]+\.[0-9]+\.[0-9]+" | 
+                            tr -d 'v')
     fi
-done | tail -n1)
+else
+    # Fallback to latest LTS
+    COMPATIBLE_VERSION=$(nvm ls-remote --lts | grep -E "v[0-9]+\.[0-9]+\.[0-9]+" | 
+                        grep -v "rc\|beta\|alpha" | 
+                        tail -1 | 
+                        grep -Eo "v[0-9]+\.[0-9]+\.[0-9]+" | 
+                        tr -d 'v')
+fi
 
 if [ -z "$COMPATIBLE_VERSION" ]; then
     echo "Error: No compatible LTS version found for requirement: $NODE_VERSION"
