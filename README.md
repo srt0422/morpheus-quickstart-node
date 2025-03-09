@@ -262,5 +262,3 @@ Remove all deployed services:
   - Enhanced security through proper authentication configuration
   - Simplified integration with the proxy component via automated data flow
   - Accelerated time-to-market for Morpheus-powered applications
-
-
