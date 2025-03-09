@@ -3,12 +3,15 @@ APP Router Readme 0.0.1
 # Sample Morpheus Chat App Deployment Guide
 
 ## Overview
+NOTE: For builder's kit instructions, please see the builder's kit README file at [builder's kit README](./node-red-example/README.md).
+
 This is a sample app using Morpheus inference in a Next.js app hosted on Google Cloud.  The app consists of two parts: 
 1. App proxy router that exists in a Docker container.
 2. A front end that the user uses to send prompts and see responses from the App router
 
 ## Table of Contents
 - [Overview](#overview)
+- [Builder's Kit Instructions](#builders-kit-instructions)
 - [Guide](#guide)
 - [Getting Started](#getting-started)
   - [Prerequisites](#prerequisites)
@@ -30,7 +33,11 @@ You will need to set up the app router in order to open and close inference sess
 
 For this particular demo we have installed the app router on a Google Cloud Run service to host Docker containers.
 
+## Builder's Kit Instructions
+- For step-by-step instructions for running the Builders' Kit project locally (requires Docker), please refer to the Builders' Kit Local Guide in the node-red-example directory: [Builders' Kit Local Guide](./node-red-example/README.md).
+
 ## Guide
+Follow the steps below to deploy the App Router and configure the system for Morpheus inference.
 
 1. Collect at least 10 MOR that will be used to pay for inference on the Morpheus network.  The address's secret key used for this demo will be potentially exposed so use a new address that you don't use for anything else besides this demo.
 
@@ -164,20 +171,11 @@ The Chat Web App is deployed directly from the source code to Google Cloud Run.
 
 ## Deployment
 
-Before getting started, rename `.env.sample` to `.env` and update any required values.
-
 ### Single Command Deployment
-Necessary services can be stood up using Docker Compose:
+Deploy all services with:
 ```bash
-docker compose up -d
+./cloud/deploy-all.sh
 ```
-
-Once up and running, status of the Docker containers can be confirmed with `docker ps -a`.
-
-Services can then be accessed on the following ports:
-- `8080`: Morpheus Chat App
-- `8081`: Morpheus NFA Proxy
-- `8082`: Morpheus Consumer Node
 
 ### Individual Service Deployment
 Deploy services separately:
@@ -238,4 +236,29 @@ Remove all deployed services:
 ./cloud/cleanup.sh
 ```
 
+## Changelog
 
+### Version 1.0.0 (Released: February 7, 2025)
+- Launched a highly engaging and user-friendly chat experience that demonstrates the inference capabilities of the Morpheus network.
+- Delivered an intuitive interface designed to enhance developer engagement and drive increases in inference usage.
+- Implemented robust security and reliability measures that foster trust and protect valuable customer data.
+- Established a scalable foundation for Morpheus builders that opens doors for future innovations and continuous improvement.
+
+### Version 1.0.1 (Released: February 21, 2025)
+- Added Node-RED integration with pre-built flows for common tasks like batch processing and data transformation
+- Added Google Cloud Run auto-scaling configuration and basic request logging
+- Added new API endpoints for system status updates and notifications
+- Added Node-RED custom node support for extending functionality with new drag-n-drop node-red node and custom deploymentflow (deploys the image https://hub.docker.com/repository/docker/srt0422/openai-morpheus-proxy/tags)
+- Built and pushed the docker image to Docker Hub and Google Container Registry (https://hub.docker.com/repository/docker/srt0422/nodered-example/tags)
+
+### Version 1.0.2 (Released: March 1, 2025)
+- This update provides an Open AI api gateway to the morpheus network
+- Created a custom node-red plugin for deploying the morpheus consumer node
+- Added reasonable default configuration values to minimize setup requirements for builders
+- Created a sample google cloud run deployment flow "Morpheus Deployment Flow" to replace "Deploy Proxy Flow"
+- The consumer-node plugin now offers significant value to builders through:
+  - Streamlined deployment with pre-configured settings
+  - Reduced implementation time through sensible defaults and improved UI
+  - Enhanced security through proper authentication configuration
+  - Simplified integration with the proxy component via automated data flow
+  - Accelerated time-to-market for Morpheus-powered applications
