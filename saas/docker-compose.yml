@@ -1,0 +1,43 @@
+version: '3.8'
+services:
+  # Keep Redis service available but the app won't use it currently
+  redis:
+    image: redis:alpine
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis-data:/data
+    command: redis-server --appendonly yes
+    networks:
+      - app-network
+
+  app:
+    build: 
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    volumes:
+      - .:/app
+      - /app/node_modules
+    environment:
+      - NODE_ENV=development
+      # Empty REDIS_URL to force using Upstash
+      - REDIS_URL=
+      - UPSTASH_REST_API_DOMAIN=learning-goblin-47025.upstash.io
+      - UPSTASH_REST_API_TOKEN=AbexAAIjcDE1M2Q4MWMxZTU5N2Q0MzEzYjQ0ZmM0NjIzZGUyYjQxMXAxMA
+      - OPENAI_API_HOST=api.openai.com
+      - OPENAI_API_VERSION=v1
+      - OPENAI_API_KEY=
+    # No dependency on redis needed for now, since we're using Upstash
+    # depends_on:
+    #   - redis
+    networks:
+      - app-network
+
+volumes:
+  redis-data:
+
+networks:
+  app-network:
+    driver: bridge 

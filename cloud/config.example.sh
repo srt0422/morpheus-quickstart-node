@@ -4,7 +4,7 @@
 export PROJECT_ID="your-project-id"
 export REGION="us-west1"
 export ZONE="us-west1-a"
-export DOCKER_REGISTRY="srt0422"  # Using Docker Hub registry instead of GCR
+export DOCKER_REGISTRY="docker.io/srt0422"  # Using Docker Hub registry instead of GCR
 export IMAGE_VERSION="1.0.0"
 export IMAGE_NAME="${DOCKER_REGISTRY}/nodered-example"
 
