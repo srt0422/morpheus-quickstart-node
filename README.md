@@ -263,7 +263,7 @@ Remove all deployed services:
   - Simplified integration with the proxy component via automated data flow
   - Accelerated time-to-market for Morpheus-powered applications
 
-### Version 1.0.3 (Released: August 15, 2023)
+### Version 1.0.3 (Released: March 9, 2025)
 - Implemented token generation functionality for secure API access
 - Added token authentication proxy to enhance security and control access to the system
 - Completed proxy integration with Morpheus node for seamless communication
