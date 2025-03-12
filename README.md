@@ -41,7 +41,7 @@ Follow the steps below to deploy the App Router and configure the system for Mor
 
 1. Collect at least 10 MOR that will be used to pay for inference on the Morpheus network.  The address's secret key used for this demo will be potentially exposed so use a new address that you don't use for anything else besides this demo.
 
-2. Make sure you have at least 0.1 ETH in your consumder node.  This is the minimum required gas to operate the system.
+2. Make sure you have at least 0.001 ETH in your consumder node.  This is the minimum required gas to operate the system.
 
 2. Set up your hosting so it can host the 3 Docker Containers required for this demo.  We are using Google Cloud.  You can use any cloud service the hosts docker containers. 
 
