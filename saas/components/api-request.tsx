@@ -234,7 +234,7 @@ const ApiRequest: FC<{ activeKeys: string[] }> = ({ activeKeys }) => {
   return (
     <div className="grid">
       <div className="mb-6">
-        <Text className="mb-2 font-bold">Test Chat Completions Endpoint</Text>
+      <Text className="mb-2 font-bold">Click &quot;Make Request&quot; below to test the API.  Look for the response in box below labeled &quot;Response&quot;.  By default the box contains the text &quot;Response will appear here&quot;.</Text>
         
         <div className="bg-gray-50 p-4 rounded-md mb-4">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">

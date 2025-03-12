@@ -15,9 +15,8 @@ export default function MyApp({ Component, pageProps }: AppProps) {
         fetcher: (path, init) => fetch(path, init).then((res) => res.json()),
       }}
     >
-      <Layout
+      {/* <Layout
         title="API Rate Limiting by IP and API Keys with Upstash"
-        path="edge-functions/api-rate-limit-and-tokens"
         description="Learn how to do API Rate limiting by IP and API Keys at the edge using Upstash."
         deployButton={{
           env: [
@@ -26,9 +25,9 @@ export default function MyApp({ Component, pageProps }: AppProps) {
             'API_KEYS_JWT_SECRET_KEY',
           ],
         }}
-      >
+      > */}
         <Component {...pageProps} />
-      </Layout>
+      {/* </Layout> */}
     </SWRConfig>
   )
 }

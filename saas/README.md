@@ -5,10 +5,11 @@ description: Template featuring API Rate limiting by IP and API Keys at the edge
 framework: Next.js
 useCase: Edge Functions
 css: Tailwind
-deployUrl: https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fvercel%2Fexamples%2Ftree%2Fmain%2Fedge-functions%2Fapi-rate-limit-and-tokens&env=UPSTASH_REST_API_DOMAIN,UPSTASH_REST_API_TOKEN,API_KEYS_JWT_SECRET_KEY&project-name=api-rate-limit-and-tokens&repository-name=api-rate-limit-and-tokens
-demoUrl: https://edge-functions-api-rate-limit-and-tokens.vercel.app
-relatedTemplates:
-  - api-rate-limit-upstash
+
+# deployUrl: https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fvercel%2Fexamples%2Ftree%2Fmain%2Fedge-functions%2Fapi-rate-limit-and-tokens&env=UPSTASH_REST_API_DOMAIN,UPSTASH_REST_API_TOKEN,API_KEYS_JWT_SECRET_KEY&project-name=api-rate-limit-and-tokens&repository-name=api-rate-limit-and-tokens
+# demoUrl: https://edge-functions-api-rate-limit-and-tokens.vercel.app
+# relatedTemplates:
+#   - api-rate-limit-upstash
 ---
 
 # API Rate Limiting by IP and API Keys with Upstash
@@ -19,7 +20,7 @@ The pattern for rate limiting is inspired by the [GitHub API](https://docs.githu
 
 ## Demo
 
-https://edge-functions-api-rate-limit-and-tokens.vercel.app
+<!-- https://edge-functions-api-rate-limit-and-tokens.vercel.app
 
 ## How to Use
 
@@ -62,3 +63,4 @@ pnpm dev
 Deploy it to the cloud with [Vercel](https://vercel.com/new?utm_source=github&utm_medium=readme&utm_campaign=edge-middleware-eap) ([Documentation](https://nextjs.org/docs/deployment)).
 
 Testing
+ -->
