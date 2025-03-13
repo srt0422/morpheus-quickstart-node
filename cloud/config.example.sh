@@ -57,7 +57,7 @@ export ENVIRONMENT="development"
 # Provider Model Configuration
 export MODEL_ID="default-model"
 # arbitrum sepolia testnet model
-export MODEL_NAME=LMR-Hermes-2-Theta-Llama-3-8B
+export MODEL_NAME=LMR-Hermes-3-Llama-3.1-8B
 # mainnet arbitrum model 
 # export MODEL_NAME="Llama 3.2 3B Instruct"
 export MODEL_API_TYPE="openai"
