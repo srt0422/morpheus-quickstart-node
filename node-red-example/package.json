@@ -22,6 +22,7 @@
     "@node-red/nodes": "^4.0.8",
     "dotenv": "^16.3.1",
     "node-red": "^3.1.8",
+    "node-red-contrib-universal-deploy": "file:../../UniversalBuilder",
     "semver": "^7.6.3"
   },
   "devDependencies": {
