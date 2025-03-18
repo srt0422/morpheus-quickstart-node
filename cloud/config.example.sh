@@ -4,8 +4,8 @@
 export PROJECT_ID="your-project-id"
 export REGION="us-west1"
 export ZONE="us-west1-a"
-export DOCKER_REGISTRY="srt0422"  # Using Docker Hub registry instead of GCR
-export IMAGE_VERSION="1.0.0"
+export DOCKER_REGISTRY="docker.io/srt0422"  # Using Docker Hub registry instead of GCR
+export IMAGE_VERSION="1.0.40"
 export IMAGE_NAME="${DOCKER_REGISTRY}/nodered-example"
 
 # API Configuration
@@ -31,7 +31,7 @@ export CONSUMER_PASSWORD="your-secure-password"  # Password for proxy and consum
 
 # Container Versions (optional - defaults to 'latest' if not set)
 export NFA_PROXY_VERSION="v0.0.31"      # e.g. "v1.0.0" - for srt0422/openai-morpheus-proxy
-export CONSUMER_NODE_VERSION="v0.0.19"  # e.g. "v1.0.0" - for srt0422/morpheus-marketplace-consumer
+export CONSUMER_NODE_VERSION="v0.0.16"  # e.g. "v1.0.0" - for srt0422/morpheus-marketplace-consumer
 export VERSION="v1.0.22"
 
 # Consumer Node Configuration
@@ -57,7 +57,7 @@ export ENVIRONMENT="development"
 # Provider Model Configuration
 export MODEL_ID="default-model"
 # arbitrum sepolia testnet model
-export MODEL_NAME=LMR-Hermes-2-Theta-Llama-3-8B
+export MODEL_NAME=LMR-Hermes-3-Llama-3.1-8B
 # mainnet arbitrum model 
 # export MODEL_NAME="Llama 3.2 3B Instruct"
 export MODEL_API_TYPE="openai"
