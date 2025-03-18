@@ -172,10 +172,12 @@ The Chat Web App is deployed directly from the source code to Google Cloud Run.
 ## Deployment
 
 ### Single Command Deployment
-Deploy all services with:
-```bash
-./cloud/deploy-all.sh
-```
+Deploy all services with Docker:
+
+- Ensure that Docker is pre-installed on your system
+- Rename the provided `.env.sample` file to `.env` and update variables as necessary
+- Utilize the [deploy-local.sh](cloud/deploy-local.sh) script to stand-up all services with Docker
+- The status of started container can be verified using `docker ps -a`. 
 
 ### Individual Service Deployment
 Deploy services separately:
