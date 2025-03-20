@@ -16,6 +16,7 @@ export MARKETPLACE_URL="${MARKETPLACE_BASE_URL}" # Full URL for marketplace comp
 export NFA_PROXY_URL="" # Will be auto-populated during deployment
 
 # Contract Configuration
+# TESTNET: 0xb8C55cD613af947E73E262F0d3C54b7211Af16CF, MAINNET: 0xDE819AaEE474626E3f34Ef0263373357e5a6C71b
 export DIAMOND_CONTRACT_ADDRESS="0xb8C55cD613af947E73E262F0d3C54b7211Af16CF"
 export WALLET_PRIVATE_KEY="your-wallet-key"
 
