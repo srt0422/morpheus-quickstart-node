@@ -271,3 +271,15 @@ Remove all deployed services:
 - Completed proxy integration with Morpheus node for seamless communication
 - Enhanced overall system security through token-based authentication flow
 - Improved developer experience with streamlined authentication processes
+
+### Version 1.0.4 (Released: March 16, 2025)
+- Launched a comprehensive website featuring user registration, sign-in, an API playground, and token management, enhancing user interaction and system accessibility.
+- Implemented token-based API access and authorization, significantly improving security and control over system resources.
+- Developed and deployed a CI/CD script, streamlining the development and deployment process, reducing time-to-market, and ensuring consistent quality across updates.
+- Provides a user-friendly platform that encourages broader adoption and engagement with the Morpheus network.
+
+### Version 1.0.5 (Released: March 21, 2025)
+- Introduced `deploy-local.sh` script for easier local deployment of the Morpheus stack:
+  - Automatically pulls the `docker-compose.yaml` template if not present, ensuring users have the latest configuration.
+  - Checks for and sets up the `.env` file from an example, simplifying initial setup.
+  - Uses `docker compose up -d` to start the Morpheus services in detached mode, allowing for seamless local testing and development.

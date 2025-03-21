@@ -1,4 +1,5 @@
 const path = require('path');
+require('dotenv').config();
 
 module.exports = {
     uiPort: process.env.PORT || 1880,
@@ -8,7 +9,7 @@ module.exports = {
     nodesDir: [
         path.join(__dirname, 'UniversalBuilder/nodes')
     ],
-    credentialSecret: process.env.NODE_RED_CREDENTIAL_SECRET || "a-secret-key",
+    credentialSecret: process.env.NODE_RED_CREDENTIAL_SECRET,
     functionGlobalContext: {
         // Add environment variables to global context
         env: process.env
@@ -56,8 +57,8 @@ module.exports = {
     adminAuth: process.env.NODE_ENV === 'production' ? {
         type: "credentials",
         users: [{
-            username: process.env.NODE_RED_USERNAME || "admin",
-            password: process.env.NODE_RED_PASSWORD || "$2a$08$zZWtXTja0fB1pzD4sHCMyOCMYz2Z6dNbM6tl8sJogENOMcxWV9DN.",
+            username: process.env.NODE_RED_USERNAME,
+            password: process.env.NODE_RED_PASSWORD,
             permissions: "*"
         }]
     } : null

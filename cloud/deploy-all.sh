@@ -30,7 +30,8 @@ gcloud run services update nfa-proxy \
   --platform managed \
   --region $REGION \
   --update-env-vars "MARKETPLACE_BASE_URL=${CONSUMER_URL},\
-MARKETPLACE_URL=${CONSUMER_URL}"
+MARKETPLACE_URL=${CONSUMER_URL},\
+CONSUMER_NODE_URL=${CONSUMER_URL}"
 
 # Update consumer node with marketplace URL
 gcloud run services update consumer-node \

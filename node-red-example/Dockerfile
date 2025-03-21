@@ -53,7 +53,7 @@ USER node-red
 RUN npm install --prefer-offline --no-audit --no-progress
 
 # Copy application files
-COPY --chown=node-red:node-red flows.json settings.js nodemon.json ./
+COPY --chown=node-red:node-red flows.json settings.js nodemon.json .env ./
 COPY --chown=node-red:node-red lib ./lib/
 COPY --chown=node-red:node-red public ./public/
 COPY --chown=node-red:node-red css ./css/
@@ -108,7 +108,7 @@ RUN npm ci --prefer-offline --no-audit --omit=dev --no-progress && \
     npm cache clean --force
 
 # Copy application files
-COPY --chown=node-red:node-red flows.json settings.js ./
+COPY --chown=node-red:node-red flows.json settings.js .env ./
 COPY --chown=node-red:node-red lib ./lib/
 COPY --chown=node-red:node-red public ./public/
 COPY --chown=node-red:node-red public/logo.png /usr/src/node-red/node_modules/node-red/public/red/images/node-red.png
