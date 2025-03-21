@@ -12,7 +12,7 @@ if [ ! -f docker-compose.yaml ]; then
     wget -O docker-compose.yaml "https://raw.githubusercontent.com/MORpheus-Software/NFA/refs/heads/main/UniversalBuilder/lib/docker-compose.yaml"
 fi
 
-# Check if the env file exists, otherwise rename the example file
+# Check if the env file exists, otherwise download and rename the example file
 if [ ! -f .env ]; then
     wget -O .env.example "https://raw.githubusercontent.com/MORpheus-Software/NFA/refs/heads/main/UniversalBuilder/lib/.env.example"
     mv .env.example .env
