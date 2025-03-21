@@ -172,7 +172,7 @@ Deploy all services with Docker:
 
 - Ensure that Docker is pre-installed on your system
 - Utilize the [deploy-local.sh](cloud/deploy-local.sh) script to stand-up all services with Docker
-- The status of started container can be verified using `docker ps -a`
+- The status of started containers can be verified using `docker ps -a`
 - Update values in the created `.env` file as necessary (passwords, wallets, etc.)
 
 ### Individual Service Deployment
