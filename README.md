@@ -158,10 +158,6 @@ export WALLET_PRIVATE_KEY="your-wallet-private-key"
 export DIAMOND_CONTRACT_ADDRESS="0xb8C55cD613af947E73E262F0d3C54b7211Af16CF"
 ```
 
-### Deploy the example app
-Deploy all services with:
-```bash
-./cloud/deploy-all.sh
 ## Docker Images
 The deployment uses the following pre-built Docker Hub images:
 - NFA Proxy: `srt0422/openai-morpheus-proxy:latest`
@@ -171,11 +167,17 @@ The Chat Web App is deployed directly from the source code to Google Cloud Run.
 
 ## Deployment
 
-### Single Command Deployment
-Deploy all services with:
+### Deploy all services with:
 ```bash
 ./cloud/deploy-all.sh
 ```
+
+### Run Locally on Docker
+
+- Ensure that Docker is pre-installed on your system
+- Utilize the [deploy-local.sh](cloud/deploy-local.sh) script to stand-up all services with Docker
+- The status of started containers can be verified using `docker ps -a`
+- Update values in the created `.env` file as necessary (passwords, wallets, etc.)
 
 ### Individual Service Deployment
 Deploy services separately:
@@ -269,5 +271,3 @@ Remove all deployed services:
 - Completed proxy integration with Morpheus node for seamless communication
 - Enhanced overall system security through token-based authentication flow
 - Improved developer experience with streamlined authentication processes
-
-

@@ -17,5 +17,8 @@ RUN npm run build
 # Expose the port
 EXPOSE 3000
 
+# Launch as a non-root user
+USER node
+
 # Use Next.js start instead of custom server
 CMD ["npm", "run", "start"]
