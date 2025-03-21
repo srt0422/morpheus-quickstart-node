@@ -158,10 +158,6 @@ export WALLET_PRIVATE_KEY="your-wallet-private-key"
 export DIAMOND_CONTRACT_ADDRESS="0xb8C55cD613af947E73E262F0d3C54b7211Af16CF"
 ```
 
-### Deploy the example app
-Deploy all services with:
-```bash
-./cloud/deploy-all.sh
 ## Docker Images
 The deployment uses the following pre-built Docker Hub images:
 - NFA Proxy: `srt0422/openai-morpheus-proxy:latest`
@@ -171,11 +167,17 @@ The Chat Web App is deployed directly from the source code to Google Cloud Run.
 
 ## Deployment
 
-### Single Command Deployment
-Deploy all services with:
+### Deploy all services with:
 ```bash
 ./cloud/deploy-all.sh
 ```
+
+### Run Locally on Docker
+
+- Ensure that Docker is pre-installed on your system
+- Utilize the [deploy-local.sh](cloud/deploy-local.sh) script to stand-up all services with Docker
+- The status of started containers can be verified using `docker ps -a`
+- Update values in the created `.env` file as necessary (passwords, wallets, etc.)
 
 ### Individual Service Deployment
 Deploy services separately:
@@ -271,3 +273,15 @@ Remove all deployed services:
 - Improved developer experience with streamlined authentication processes
 
 
+### Version 1.0.4 (Released: March 16, 2025)
+- Launched a comprehensive website featuring user registration, sign-in, an API playground, and token management, enhancing user interaction and system accessibility.
+- Implemented token-based API access and authorization, significantly improving security and control over system resources.
+- Developed and deployed a CI/CD script, streamlining the development and deployment process, reducing time-to-market, and ensuring consistent quality across updates.
+- Provides a user-friendly platform that encourages broader adoption and engagement with the Morpheus network.
+
+
+### Version 1.0.4 (Released: March 28, 2025)
+- Introduced `deploy-local.sh` script for easier local deployment of the Morpheus stack:
+  - Automatically pulls the `docker-compose.yaml` template if not present, ensuring users have the latest configuration.
+  - Checks for and sets up the `.env` file from an example, simplifying initial setup.
+  - Uses `docker compose up -d` to start the Morpheus services in detached mode, allowing for seamless local testing and development.
