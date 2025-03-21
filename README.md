@@ -192,11 +192,6 @@ Deploy services separately:
 ./cloud/deploy-webapp.sh
 ```
 
-Deploy all services:
-```bash
-./cloud/deploy-all.sh
-```
-
 ## Service Architecture
 
 ```
