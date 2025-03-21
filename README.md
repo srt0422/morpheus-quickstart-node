@@ -280,7 +280,7 @@ Remove all deployed services:
 - Provides a user-friendly platform that encourages broader adoption and engagement with the Morpheus network.
 
 
-### Version 1.0.4 (Released: March 28, 2025)
+### Version 1.0.5 (Released: March 21, 2025)
 - Introduced `deploy-local.sh` script for easier local deployment of the Morpheus stack:
   - Automatically pulls the `docker-compose.yaml` template if not present, ensuring users have the latest configuration.
   - Checks for and sets up the `.env` file from an example, simplifying initial setup.
