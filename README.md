@@ -162,6 +162,8 @@ export DIAMOND_CONTRACT_ADDRESS="0xb8C55cD613af947E73E262F0d3C54b7211Af16CF"
 Deploy all services with:
 ```bash
 ./cloud/deploy-all.sh
+```
+
 ## Docker Images
 The deployment uses the following pre-built Docker Hub images:
 - NFA Proxy: `srt0422/openai-morpheus-proxy:latest`
