@@ -16,6 +16,7 @@ export MARKETPLACE_URL="${MARKETPLACE_BASE_URL}" # Full URL for marketplace comp
 export NFA_PROXY_URL="" # Will be auto-populated during deployment
 
 # Contract Configuration
+# DIAMOND_CONTRACT_ADDRESS TESTNET: 0xb8C55cD613af947E73E262F0d3C54b7211Af16CF, MAINNET: 0xDE819AaEE474626E3f34Ef0263373357e5a6C71b
 export DIAMOND_CONTRACT_ADDRESS="0xb8C55cD613af947E73E262F0d3C54b7211Af16CF"
 export WALLET_PRIVATE_KEY="your-wallet-key"
 
@@ -23,6 +24,8 @@ export WALLET_PRIVATE_KEY="your-wallet-key"
 export INTERNAL_API_PORT="8080"  # Internal reference only, Cloud Run will provide PORT
 export MARKETPLACE_PORT="3333"
 export SESSION_DURATION="1h"
+
+# MOR_TOKEN_ADDRESS  TESTNET: 0x34a285a1b1c166420df5b6630132542923b5b27e, MAINNET: 0x092bAaDB7DEf4C3981454dD9c0A0D7FF07bCFc86
 export MOR_TOKEN_ADDRESS=0x34a285a1b1c166420df5b6630132542923b5b27e
 
 # Authentication Configuration
@@ -35,8 +38,11 @@ export CONSUMER_NODE_VERSION="v0.0.16"  # e.g. "v1.0.0" - for srt0422/morpheus-m
 export VERSION="v1.0.22"
 
 # Consumer Node Configuration
+# mainnet wss://arb-mainnet.g.alchemy.com/v2/your-project-id
+# testnet wss://arb-sepolia.g.alchemy.com/v2/your-project-id
+
 export BLOCKCHAIN_WS_URL="" # "wss://arbitrum-mainnet.infura.io/ws/v3/your-project-id"
-export BLOCKCHAIN_HTTP_URL="" # "https://arbitrum-mainnet.infura.io/v3/your-project-id" public endpoint - https://sepolia-rollup.arbitrum.io/rpc
+export BLOCKCHAIN_HTTP_URL="" # "https://arbitrum-mainnet.infura.io/v3/your-project-id" public testnet endpoint - https://sepolia-rollup.arbitrum.io/rpc
 export LOG_LEVEL="info"
 export LOG_FORMAT="text"
 export PROVIDER_CACHE_TTL="60"
@@ -44,6 +50,7 @@ export MAX_CONCURRENT_SESSIONS="100"
 export SESSION_TIMEOUT="3600"
 
 # Node Configuration
+# mainnet: https://api-mainnet.arbiscan.io/api #testnet: https://api-sepolia.arbiscan.io/api
 export EXPLORER_API_URL="https://api-sepolia.arbiscan.io/api"
 export ETH_NODE_ADDRESS="${BLOCKCHAIN_WS_URL:-${BLOCKCHAIN_HTTP_URL:-https://sepolia-rollup.arbitrum.io/rpc}}"
 export ETH_NODE_LEGACY_TX="false"
@@ -51,6 +58,7 @@ export PROXY_STORE_CHAT_CONTEXT="true"
 export PROXY_STORAGE_PATH="./data/"
 export LOG_COLOR="true"
 export ETH_NODE_USE_SUBSCRIPTIONS="false"
+# mainnet: 42161, testnet: 421614
 export ETH_NODE_CHAIN_ID="421614"
 export ENVIRONMENT="development"
 
