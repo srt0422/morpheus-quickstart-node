@@ -276,13 +276,6 @@ Remove all deployed services:
 - Developed an SDK for interacting with the builder's smart contracts, simplifying integration for developers.
 - Implemented a user-friendly UI within the chat application, enabling users to stake tokens directly and manage their API access.
 
-
-### Version 1.1.0 (Released: April 5, 2025)
-- Integrated staking mechanism for API access, allowing users to stake MOR tokens in exchange for access to the Morpheus API subnet.
-- Added scripts for deploying builder's smart contracts to the Arbitrum Sepolia testnet, facilitating the creation and management of subnets.
-- Developed an SDK for interacting with the builder's smart contracts, simplifying integration for developers.
-- Implemented a user-friendly UI within the chat application, enabling users to stake tokens directly and manage their API access.
-
 ### Version 1.0.4 (Released: March 16, 2025)
 - Launched a comprehensive website featuring user registration, sign-in, an API playground, and token management, enhancing user interaction and system accessibility.
 - Implemented token-based API access and authorization, significantly improving security and control over system resources.
@@ -294,3 +287,9 @@ Remove all deployed services:
   - Automatically pulls the `docker-compose.yaml` template if not present, ensuring users have the latest configuration.
   - Checks for and sets up the `.env` file from an example, simplifying initial setup.
   - Uses `docker compose up -d` to start the Morpheus services in detached mode, allowing for seamless local testing and development.
+
+### Version 1.1.0 (Released: April 5, 2025)
+- Integrated staking mechanism for API access, allowing users to stake MOR tokens in exchange for access to the Morpheus API subnet.
+- Added scripts for deploying builder's smart contracts to the Arbitrum Sepolia testnet, facilitating the creation and management of subnets.
+- Developed an SDK for interacting with the builder's smart contracts, simplifying integration for developers.
+- Implemented a user-friendly UI within the chat application, enabling users to stake tokens directly and manage their API access.
