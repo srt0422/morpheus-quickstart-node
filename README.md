@@ -269,5 +269,16 @@ Remove all deployed services:
 - Completed proxy integration with Morpheus node for seamless communication
 - Enhanced overall system security through token-based authentication flow
 - Improved developer experience with streamlined authentication processes
+- Integrated staking mechanism for API access, allowing users to stake MOR tokens in exchange for access to the Morpheus API subnet.
+- Added scripts for deploying builder's smart contracts to the Arbitrum Sepolia testnet, facilitating the creation and management of subnets.
+- Developed an SDK for interacting with the builder's smart contracts, simplifying integration for developers.
+- Implemented a user-friendly UI within the chat application, enabling users to stake tokens directly and manage their API access.
+
+
+### Version 1.1.0 (Released: April 5, 2025)
+- Integrated staking mechanism for API access, allowing users to stake MOR tokens in exchange for access to the Morpheus API subnet.
+- Added scripts for deploying builder's smart contracts to the Arbitrum Sepolia testnet, facilitating the creation and management of subnets.
+- Developed an SDK for interacting with the builder's smart contracts, simplifying integration for developers.
+- Implemented a user-friendly UI within the chat application, enabling users to stake tokens directly and manage their API access.
 
 
