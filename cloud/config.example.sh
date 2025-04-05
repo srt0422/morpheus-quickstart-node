@@ -24,13 +24,14 @@ export WALLET_PRIVATE_KEY="your-wallet-key"
 export INTERNAL_API_PORT="8080"  # Internal reference only, Cloud Run will provide PORT
 export MARKETPLACE_PORT="3333"
 export SESSION_DURATION="1h"
-
 # MOR_TOKEN_ADDRESS  TESTNET: 0x34a285a1b1c166420df5b6630132542923b5b27e, MAINNET: 0x092bAaDB7DEf4C3981454dD9c0A0D7FF07bCFc86
 export MOR_TOKEN_ADDRESS=0x34a285a1b1c166420df5b6630132542923b5b27e
 
 # Authentication Configuration
 export CONSUMER_USERNAME="admin"  # Username for proxy and consumer node authentication
 export CONSUMER_PASSWORD="your-secure-password"  # Password for proxy and consumer node authentication
+export COOKIE_FILE_PATH="/secrets/.cookie"  # Path where the secret will be mounted
+export COOKIE_CONTENT="test:your-secure-password"
 
 # Container Versions (optional - defaults to 'latest' if not set)
 export NFA_PROXY_VERSION="v0.0.31"      # e.g. "v1.0.0" - for srt0422/openai-morpheus-proxy
