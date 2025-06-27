@@ -293,3 +293,21 @@ Remove all deployed services:
 - Added scripts for deploying builder's smart contracts to the Arbitrum Sepolia testnet, facilitating the creation and management of subnets.
 - Developed an SDK for interacting with the builder's smart contracts, simplifying integration for developers.
 - Implemented a user-friendly UI within the chat application, enabling users to stake tokens directly and manage their API access.
+
+### Version 1.2.0 (Released: April 30, 2025)
+- Added API access restriction based on token staking.
+
+### Version 1.3.0 (Released: May 1, 2025)
+- Deployed Morpheus provider to Heroku.
+
+### Version 1.4.0 (Released: May 15, 2025)
+- Deployed Morpheus provider to manifest.
+
+### Version 1.5.0 (Released: May 31, 2025)
+- Created and published lite-client Morpheus chat app release to GitHub.
+
+### Version 1.6.0 (Released: June 15, 2025)
+- Created website for Morpheus holdings rewards.
+
+### Version 1.7.0 (Released: June 27, 2025)
+- Deployed testing platform for Mor-API with detailed error reporting and sophisticated API test automation.
